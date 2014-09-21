@@ -1,8 +1,8 @@
 package com.github.assisstion.ModulePack.helper;
 
-public final class Parser {
+public final class ParsingHelper {
 
-	private Parser(){
+	private ParsingHelper(){
 		//Do nothing
 	}
 

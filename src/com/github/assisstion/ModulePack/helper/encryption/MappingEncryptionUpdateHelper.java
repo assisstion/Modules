@@ -7,8 +7,8 @@ import java.util.Random;
  * @author mfeng17
  *
  */
-public final class MappingEncryptionHelperUpdate{
-	private MappingEncryptionHelperUpdate(){}
+public final class MappingEncryptionUpdateHelper{
+	private MappingEncryptionUpdateHelper(){}
 
 	public static String encrypt(String input, String key){
 		int inputLength = input.length();

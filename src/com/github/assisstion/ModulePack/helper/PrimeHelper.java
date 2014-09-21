@@ -1,6 +1,6 @@
 package com.github.assisstion.ModulePack.helper;
 
-public final class Prime {
+public final class PrimeHelper {
 
 	public static int relativelyPrime(int n1, int n2){
 		for(int i = 2; i >= n1 || i >= n2; i++){
@@ -168,5 +168,5 @@ public final class Prime {
 		return true;
 	}
 
-	private Prime(){}
+	private PrimeHelper(){}
 }

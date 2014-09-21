@@ -1,7 +1,7 @@
 package com.github.assisstion.ModulePack.helper;
 
-public final class TimeConverter {
-	private TimeConverter(){}
+public final class TimeConversionHelper {
+	private TimeConversionHelper(){}
 
 	public static Time expand(long seconds){
 		long secondsLeft = seconds % 60;

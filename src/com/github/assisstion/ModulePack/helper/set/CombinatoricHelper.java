@@ -10,9 +10,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 
-public final class Combinatorics{
+public final class CombinatoricHelper{
 
-	private Combinatorics(){
+	private CombinatoricHelper(){
 		//Do nothing
 	}
 

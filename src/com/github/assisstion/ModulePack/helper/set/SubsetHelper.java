@@ -9,8 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
-public final class Subsets{
-	private Subsets(){
+public final class SubsetHelper{
+	private SubsetHelper(){
 		//Do nothing
 	}
 
