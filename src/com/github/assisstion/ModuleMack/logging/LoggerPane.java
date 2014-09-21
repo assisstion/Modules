@@ -91,7 +91,7 @@ public class LoggerPane extends JPanel{
 	}
 	 */
 
-	public void setProgress(IntegerPair values){
+	public void setProgress(Pair<Integer, Integer> values){
 		progress.push(values);
 	}
 
@@ -126,9 +126,9 @@ public class LoggerPane extends JPanel{
 		}
 	}
 
-	public class ProgressWorker extends SwingWorker<Object, IntegerPair>{
+	public class ProgressWorker extends SwingWorker<Object, Pair<Integer, Integer>>{
 
-		protected void push(IntegerPair progress){
+		protected void push(Pair<Integer, Integer> progress){
 			publish(progress);
 		}
 
@@ -138,8 +138,8 @@ public class LoggerPane extends JPanel{
 		}
 
 		@Override
-		protected void process(List<IntegerPair> integerPairs){
-			for(IntegerPair pairOne : integerPairs){
+		protected void process(List<Pair<Integer, Integer>> integerPairs){
+			for(Pair<Integer, Integer> pairOne : integerPairs){
 				if(pairOne.getValueTwo().equals(0)){
 					progressBar.setEnabled(false);
 					progressBar.setStringPainted(false);
