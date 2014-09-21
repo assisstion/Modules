@@ -16,6 +16,10 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import com.github.assisstion.ModulePack.Pair;
+import com.github.assisstion.ModulePack.annotation.Dependency;
+
+@Dependency(Pair.class)
 public class LoggerPane extends JPanel{
 
 	public Logger log;

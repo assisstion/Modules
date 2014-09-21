@@ -5,6 +5,10 @@ import java.util.Calendar;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
+import com.github.assisstion.ModulePack.Pair;
+import com.github.assisstion.ModulePack.annotation.Dependency;
+
+@Dependency(Pair.class)
 public class LogHandler extends Handler{
 
 	protected LoggerPane gui;

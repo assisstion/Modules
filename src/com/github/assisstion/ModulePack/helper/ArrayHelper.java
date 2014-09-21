@@ -7,7 +7,7 @@ import java.util.Set;
 import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.Dependency;
 
-@Dependency({Pair.class})
+@Dependency(Pair.class)
 public final class ArrayHelper{
 
 	private ArrayHelper(){}
