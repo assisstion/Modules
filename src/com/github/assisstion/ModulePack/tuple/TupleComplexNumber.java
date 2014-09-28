@@ -3,6 +3,7 @@ package com.github.assisstion.ModulePack.tuple;
 import java.util.Iterator;
 
 import com.github.assisstion.ModulePack.ComplexNumber;
+import com.github.assisstion.ModulePack.annotation.Dependency;
 
 /**
  * The TupleComplexNumber class extends the ComplexNumber class to
@@ -12,6 +13,7 @@ import com.github.assisstion.ModulePack.ComplexNumber;
  *
  * @author Markus Feng
  */
+@Dependency(ComplexNumber.class)
 public class TupleComplexNumber extends ComplexNumber implements Tuple2<Double, Double>{
 
 	/**
