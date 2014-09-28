@@ -10,6 +10,7 @@ package com.github.assisstion.ModulePack;
  * @param <T> the type of each object in the tuple
  */
 public interface Tuple<T> extends Iterable<T>{
+
 	/**
 	 * Returns the value at the given index of the tuple
 	 * @param index the index to find the value
