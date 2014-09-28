@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack;
+package com.github.assisstion.ModulePack.tuple;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

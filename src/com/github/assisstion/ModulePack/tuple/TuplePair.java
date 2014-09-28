@@ -1,6 +1,8 @@
-package com.github.assisstion.ModulePack;
+package com.github.assisstion.ModulePack.tuple;
 
 import java.util.Iterator;
+
+import com.github.assisstion.ModulePack.Pair;
 
 /**
  * The TuplePair class extends the Pair class to provide additional

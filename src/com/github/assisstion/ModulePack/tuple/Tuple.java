@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack;
+package com.github.assisstion.ModulePack.tuple;
 
 /**
  * The Tuple2interface represents a sequence of Objects together. It is
