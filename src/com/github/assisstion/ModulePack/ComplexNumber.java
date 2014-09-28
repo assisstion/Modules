@@ -1,5 +1,12 @@
 package com.github.assisstion.ModulePack;
 
+/**
+ * Complex numbers represented with two doubles, one real
+ * and one imaginary. Common operations with complex numbers
+ * are included in the implementation.
+ *
+ * @author Markus Feng
+ */
 public class ComplexNumber{
 	protected double real = 0;
 	protected double imaginary = 0;
@@ -12,7 +19,7 @@ public class ComplexNumber{
 			this.imaginary = value;
 		}
 		else{
-			this.real = value;
+			real = value;
 		}
 	}
 	protected ComplexNumber(){}
@@ -24,8 +31,8 @@ public class ComplexNumber{
 	}
 	public ComplexNumber multiply(ComplexNumber c){
 		ComplexNumber c2 = new ComplexNumber();
-		c2.real = (real * c.real) - (imaginary * c.imaginary);
-		c2.imaginary = (imaginary * c.real) + (real * c.imaginary);
+		c2.real = real * c.real - imaginary * c.imaginary;
+		c2.imaginary = imaginary * c.real + real * c.imaginary;
 		return c2;
 	}
 	public ComplexNumber subtract(ComplexNumber c){
@@ -36,14 +43,14 @@ public class ComplexNumber{
 	}
 	public ComplexNumber divide(ComplexNumber c){
 		ComplexNumber c2 = new ComplexNumber();
-		c2.real = ((real * c.real) + (imaginary * c.imaginary)) / ((c.real * c.real) + (c.imaginary * c.imaginary));
-		c2.imaginary = ((imaginary * c.real) - (real * c.imaginary)) / ((c.real * c.real) + (c.imaginary * c.imaginary));
+		c2.real = (real * c.real + imaginary * c.imaginary) / (c.real * c.real + c.imaginary * c.imaginary);
+		c2.imaginary = (imaginary * c.real - real * c.imaginary) / (c.real * c.real + c.imaginary * c.imaginary);
 		return c2;
 	}
 	public ComplexNumber sqrt(){
 		ComplexNumber c2 = new ComplexNumber();
-		c2.real = Math.sqrt((real + Math.sqrt((real * real) + (imaginary * imaginary))) / 2);
-		double d = Math.sqrt((-real + Math.sqrt((real * real) + (imaginary * imaginary))) / 2);
+		c2.real = Math.sqrt((real + Math.sqrt(real * real + imaginary * imaginary)) / 2);
+		double d = Math.sqrt((-real + Math.sqrt(real * real + imaginary * imaginary)) / 2);
 		c2.imaginary = imaginary > 0 ? d : -d;
 		return c2;
 	}
@@ -77,7 +84,7 @@ public class ComplexNumber{
 	}
 	@Override
 	public int hashCode(){
-		return new Double(real).hashCode() ^ (new Double(imaginary).hashCode() << 32 ^ new Double(imaginary).hashCode() >> 32);
+		return new Double(real).hashCode() ^ new Double(imaginary).hashCode() << 32 ^ new Double(imaginary).hashCode() >> 32;
 	}
 	@Override
 	public String toString(){

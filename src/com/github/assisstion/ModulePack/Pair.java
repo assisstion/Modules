@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * The Pair class represents two typed Objects together. It is
- * analogous to a 2-tuple in storing typed Objects. Appplications
+ * analogous to a 2-tuple in storing typed Objects. Applications
  * include putting multiple Objects in an index of a Collection,
  * or returning more than one value from a method. Multiple
  * Pairs can be nested to simulate a 3-tuple or more. Note that
@@ -12,8 +12,8 @@ import java.io.Serializable;
  *
  * @author Markus Feng
  *
- * @param <T> the type of the first value of the pair
- * @param <S> the type of the second value of the pair
+ * @param <T> the type of the first value
+ * @param <S> the type of the second value
  */
 public class Pair<T, S> implements Serializable{
 
@@ -21,9 +21,19 @@ public class Pair<T, S> implements Serializable{
 	private static final int LOW_MASK = 0x0000FFFF;
 	private static final int HIGH_MASK = 0xFFFF0000;
 
+	/**
+	 * The the first item
+	 */
 	protected T valueOne;
+
+	/**
+	 * The second item
+	 */
 	protected S valueTwo;
 
+	/**
+	 * Creates an empty pair
+	 */
 	protected Pair(){
 
 	}
@@ -46,26 +56,20 @@ public class Pair<T, S> implements Serializable{
 		this.valueTwo = valueTwo;
 	}
 
-	/**
-	 * Returns the value of the first item
-	 * @return the value of the first item
-	 */
 	public T getValueOne(){
 		return valueOne;
 	}
 
-	/**
-	 * Returns the value of the second item
-	 * @return the value of the second item
-	 */
 	public S getValueTwo(){
 		return valueTwo;
 	}
 
 	@Override
 	public String toString(){
-		String valueOneString = getValueOne() == null ? "null" : getValueOne().toString();
-		String valueTwoString = getValueTwo() == null ? "null" : getValueTwo().toString();
+		T v1 = getValueOne();
+		S v2 = getValueTwo();
+		String valueOneString = v1 == null ? "null" : v1.toString();
+		String valueTwoString = v2 == null ? "null" : v2.toString();
 		return "Pair: [" + valueOneString + "," + valueTwoString + "]";
 	}
 
@@ -86,4 +90,24 @@ public class Pair<T, S> implements Serializable{
 				getValueTwo().hashCode() << 16 ^ HIGH_MASK ^
 				getValueTwo().hashCode() >> 16 ^ LOW_MASK;
 	}
+
+	/**
+	 * Creates a new Pair with the given values
+	 * @param v1 the value of the first item
+	 * @param v2 the value of the second item
+	 * @return a new Pair with the given values
+	 */
+	public static <T, S> Pair<T, S> make(T v1, S v2){
+		return new Pair<T, S>(v1, v2);
+	}
+
+	/**
+	 * Creates a new Pair with the same values as the given Pair
+	 * @param original the Pair to obtain values from
+	 * @return a new Pair with the same values as the given Pair
+	 */
+	public static <T, S> Pair<T, S> make(Pair<T, S> pair){
+		return new Pair<T, S>(pair);
+	}
+
 }
