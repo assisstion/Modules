@@ -1,7 +1,7 @@
 package com.github.assisstion.ModulePack.tuple;
 
 /**
- * The Tuple2interface represents a sequence of Objects together. It is
+ * The Tuple interface represents a sequence of Objects together. It is
  * analogous to a tuple in storing Objects. For specific sizes of Tuples,
  * see their respective interfaces.
  *
