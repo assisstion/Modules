@@ -3,6 +3,7 @@ package com.github.assisstion.ModulePack.logging;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.Dependency;
 
 @Dependency(Pair.class)
-public class LoggerPane extends JPanel{
+public class LoggerPane extends JPanel implements Consumer<String>{
 
 	public Logger log;
 
@@ -152,5 +153,10 @@ public class LoggerPane extends JPanel{
 				progressBar.setMaximum(pairOne.getValueTwo());
 			}
 		}
+	}
+
+	@Override
+	public void accept(String t){
+		worker.push(new Pair<String, Color>(t, color));
 	}
 }

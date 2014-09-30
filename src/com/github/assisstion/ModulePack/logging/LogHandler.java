@@ -1,7 +1,7 @@
 package com.github.assisstion.ModulePack.logging;
 
-import java.awt.Color;
 import java.util.Calendar;
+import java.util.function.Consumer;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -11,10 +11,10 @@ import com.github.assisstion.ModulePack.annotation.Dependency;
 @Dependency(Pair.class)
 public class LogHandler extends Handler{
 
-	protected LoggerPane gui;
+	protected Consumer<String> sc;
 
-	public LogHandler(LoggerPane gui){
-		this.gui = gui;
+	public LogHandler(Consumer<String> consumer){
+		sc = consumer;
 	}
 
 	@Override
@@ -33,12 +33,10 @@ public class LogHandler extends Handler{
 		Calendar c = Calendar.getInstance();
 		String timeStamp = String.format("%1$tY-%1$tm-%1td %1$tH:%1$tM:%1$tS", c);
 		if(!record.getLevel().getName().equals("NOMESSAGE")){
-			gui.worker.push(new Pair<String, Color>(
-					timeStamp + " - [" + record.getLevel().getName() + "] " + record.getMessage(),
-					gui.color));
+			sc.accept(timeStamp + " - [" + record.getLevel().getName() + "] " + record.getMessage());
 		}
 		else{
-			gui.worker.push(new Pair<String, Color>(record.getMessage(), gui.color));
+			sc.accept(record.getMessage());
 		}
 	}
 }
