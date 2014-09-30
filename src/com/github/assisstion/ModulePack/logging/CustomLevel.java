@@ -1,4 +1,4 @@
-package com.github.assisstion.ModuleMack.logging;
+package com.github.assisstion.ModulePack.logging;
 
 import java.util.logging.Level;
 
