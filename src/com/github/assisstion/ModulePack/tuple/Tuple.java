@@ -1,5 +1,8 @@
 package com.github.assisstion.ModulePack.tuple;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
 /**
  * The Tuple interface represents a sequence of Objects together. It is
  * analogous to a tuple in storing Objects. For specific sizes of Tuples,
@@ -9,6 +12,7 @@ package com.github.assisstion.ModulePack.tuple;
  *
  * @param <T> the type of each object in the tuple
  */
+@CompileVersion(Version.V1_5) // Generics
 public interface Tuple<T> extends Iterable<T>{
 
 	/**

@@ -3,7 +3,9 @@ package com.github.assisstion.ModulePack.tuple;
 import java.util.Iterator;
 
 import com.github.assisstion.ModulePack.Pair;
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
+import com.github.assisstion.ModulePack.annotation.Version;
 
 /**
  * The TuplePair class extends the Pair class to provide additional
@@ -19,6 +21,7 @@ import com.github.assisstion.ModulePack.annotation.Dependency;
  * @param <S> the type of the second value
  */
 @Dependency(Pair.class)
+@CompileVersion(Version.V1_5) //Generics
 public class TuplePair<T, S> extends Pair<T, S> implements Tuple2<T, S>{
 
 	private static final long serialVersionUID = 5697357297873395851L;

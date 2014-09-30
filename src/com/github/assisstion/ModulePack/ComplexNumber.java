@@ -1,5 +1,8 @@
 package com.github.assisstion.ModulePack;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
 /**
  * Complex numbers represented with two doubles, one real
  * and one imaginary. Common operations with complex numbers
@@ -7,6 +10,7 @@ package com.github.assisstion.ModulePack;
  *
  * @author Markus Feng
  */
+@CompileVersion(Version.V1_0)
 public class ComplexNumber{
 
 	/**

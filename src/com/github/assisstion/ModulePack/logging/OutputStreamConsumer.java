@@ -8,6 +8,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.function.Consumer;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
+@CompileVersion(Version.V1_8) // Consumer<T>
 public class OutputStreamConsumer implements Consumer<String>, Closeable{
 
 	protected BufferedWriter bos;

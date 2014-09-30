@@ -2,6 +2,9 @@ package com.github.assisstion.ModulePack;
 
 import java.io.Serializable;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
 /**
  * The Pair class represents two typed Objects together. It is
  * analogous to a 2-tuple in storing typed Objects. Applications
@@ -15,6 +18,7 @@ import java.io.Serializable;
  * @param <T> the type of the first value
  * @param <S> the type of the second value
  */
+@CompileVersion(Version.V1_7) // Hexadecimal literals
 public class Pair<T, S> implements Serializable{
 
 	private static final long serialVersionUID = -8076809629855557338L;
