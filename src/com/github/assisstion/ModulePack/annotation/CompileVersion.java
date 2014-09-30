@@ -5,14 +5,13 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * Lists all classes outside of its package that is not in the
- * Java Standard Library and is required to compile this class.
+ * Gives the lowest version of Java this program will compile on.
  * Not always evaluated to full accuracy.
  *
  * @author Markus Feng
  */
 @Documented
 @Target(ElementType.TYPE)
-public @interface Dependency {
-	Class<?>[] value();
+public @interface CompileVersion{
+	Version value();
 }
