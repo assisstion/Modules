@@ -5,6 +5,7 @@ package com.github.assisstion.ModulePack.annotation;
  *
  * @author Markus Feng
  */
+@CompileVersion(Version.V1_5) // Enum
 public enum Version{
 
 	/**

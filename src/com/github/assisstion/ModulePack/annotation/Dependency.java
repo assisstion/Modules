@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Target(ElementType.TYPE)
+@CompileVersion(Version.V1_5) // Annotation
 public @interface Dependency {
 	Class<?>[] value();
 }

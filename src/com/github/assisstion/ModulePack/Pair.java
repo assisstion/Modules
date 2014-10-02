@@ -18,7 +18,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  * @param <T> the type of the first value
  * @param <S> the type of the second value
  */
-@CompileVersion(Version.V1_7) // Hexadecimal literals
+@CompileVersion(Version.V1_5) // Generics
 public class Pair<T, S> implements Serializable{
 
 	private static final long serialVersionUID = -8076809629855557338L;
