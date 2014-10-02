@@ -1,5 +1,7 @@
 package com.github.assisstion.ModulePack;
 
+import java.io.Serializable;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Version;
 
@@ -11,7 +13,9 @@ import com.github.assisstion.ModulePack.annotation.Version;
  * @author Markus Feng
  */
 @CompileVersion(Version.V1_0)
-public class ComplexNumber{
+public class ComplexNumber implements Serializable{
+
+	private static final long serialVersionUID = -7777073479850468489L;
 
 	/**
 	 * The real part

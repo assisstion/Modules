@@ -1,5 +1,6 @@
 package com.github.assisstion.ModulePack;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
@@ -14,7 +15,9 @@ import com.github.assisstion.ModulePack.annotation.Version;
  * @param <E> The original type of the number
  */
 @CompileVersion(Version.V1_5) // Generics
-public class UnsignedNumber<E extends Number> {
+public class UnsignedNumber<E extends Number> implements Serializable{
+
+	private static final long serialVersionUID = 7799997681922766654L;
 
 	/**
 	 * The the number stored in a long
@@ -157,5 +160,24 @@ public class UnsignedNumber<E extends Number> {
 			out[length - i - 1] = ba[i];
 		}
 		return out;
+	}
+
+	/**
+	 * Creates a new UnsignedNumber with the given value
+	 * @param v1 the signed value
+	 * @return a new UnsignedNumber with the given value
+	 */
+	public static <T extends Number> UnsignedNumber<T> make(T v1){
+		return new UnsignedNumber<T>(v1);
+	}
+
+	/**
+	 * Creates a new UnsignedNumber with the given UnsignedNumber's value
+	 * @param v1 the signed value
+	 * @return a new UnsignedNumber with the given UnsignedNumber's value
+	 */
+	public static <T extends Number> UnsignedNumber<T> make(
+			UnsignedNumber<? extends T> v1){
+		return new UnsignedNumber<T>(v1);
 	}
 }
