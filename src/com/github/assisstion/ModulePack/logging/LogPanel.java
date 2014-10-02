@@ -17,6 +17,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
+@CompileVersion(Version.V1_4) // Logging
 public abstract class LogPanel extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = -3723376082239462955L;

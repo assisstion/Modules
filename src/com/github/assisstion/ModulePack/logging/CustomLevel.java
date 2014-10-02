@@ -2,6 +2,10 @@ package com.github.assisstion.ModulePack.logging;
 
 import java.util.logging.Level;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
+@CompileVersion(Version.V1_4) // Logging API
 public class CustomLevel extends Level{
 
 	private static final long serialVersionUID = -5351557309080563213L;

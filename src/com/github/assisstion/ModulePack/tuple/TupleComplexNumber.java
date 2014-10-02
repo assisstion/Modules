@@ -19,6 +19,8 @@ import com.github.assisstion.ModulePack.annotation.Version;
 @CompileVersion(Version.V1_5) // Generics
 public class TupleComplexNumber extends ComplexNumber implements Tuple2<Double, Double>{
 
+	private static final long serialVersionUID = -7800445667042030038L;
+
 	/**
 	 * Creates a new ComplexNumber with the given values
 	 * @param real the real part of the ComplexNumber
