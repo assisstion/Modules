@@ -2,9 +2,29 @@ package com.github.assisstion.ModulePack;
 
 import java.math.BigInteger;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
+import com.github.assisstion.ModulePack.annotation.Version;
+
+/**
+ * Represents an unsigned number. Includes built-in support for byte,
+ * short, int and long.
+ *
+ * @author Markus feng
+ *
+ * @param <E> The original type of the number
+ */
+@CompileVersion(Version.V1_5) // Generics
 public class UnsignedNumber<E extends Number> {
-	private long value;
-	private E originalValue;
+
+	/**
+	 * The the number stored in a long
+	 */
+	protected long value;
+
+	/**
+	 * The original value of the number
+	 */
+	protected E originalValue;
 	private int type;
 
 	private static final int TYPE_BYTE = 0;
@@ -12,14 +32,34 @@ public class UnsignedNumber<E extends Number> {
 	private static final int TYPE_INT = 2;
 	private static final int TYPE_LONG = 3;
 
+	/**
+	 * Returns the signed value of the unsigned number
+	 * @return the signed value of the unsigned number
+	 */
 	public E getSignedValue(){
 		return originalValue;
 	}
 
+	/**
+	 * Returns the original class of the unsigned number
+	 * @return the original class of the unsigned number
+	 */
 	public Class<? extends Number> getValueClass(){
 		return originalValue.getClass();
 	}
 
+	/**
+	 * Creates an UnsignedNumber with the same value as a given number
+	 * @param number the UnsignedNumber to copy from
+	 */
+	public UnsignedNumber(UnsignedNumber<? extends E> number){
+		this(number.getSignedValue());
+	}
+
+	/**
+	 * Creates an UnsignedNumber with the given signed value
+	 * @param value the value of the UnsignedNumber
+	 */
 	public UnsignedNumber(E value){
 		if(value instanceof Byte || value instanceof Long || value instanceof Integer || value instanceof Short){
 			this.value = value.longValue();
@@ -42,6 +82,10 @@ public class UnsignedNumber<E extends Number> {
 		}
 	}
 
+	/**
+	 * Returns the unsigned BigInteger value of the signed number
+	 * @return the unsigned BigInteger value of the signed number
+	 */
 	public BigInteger getUnsignedBigIntegerValue(){
 		BigInteger bi = BigInteger.valueOf(0);
 		boolean[] ba = reverse(toBitArray());
@@ -52,16 +96,24 @@ public class UnsignedNumber<E extends Number> {
 		return bi;
 	}
 
+	/**
+	 * Returns the unsigned value of the signed number
+	 * @return the unsigned value of the signed number
+	 */
 	public long getUnsignedValue(){
 		long bi = 0;
 		boolean[] ba = reverse(toBitArray());
 		int length = ba.length;
 		for(int i = 0; i < length; i++){
-			bi += ba[i]?Math.pow(2, i):0;
+			bi += ba[i] ? Math.pow(2, i) : 0;
 		}
 		return bi;
 	}
 
+	/**
+	 * Returns the value represented as an array of bits
+	 * @return the value represented as an array of bits
+	 */
 	public boolean[] toBitArray(){
 		int typebits = typeBits(type);
 		boolean[] ba = new boolean[typebits];
@@ -93,7 +145,12 @@ public class UnsignedNumber<E extends Number> {
 		}
 	}
 
-	private static boolean[] reverse(boolean[] ba){
+	/**
+	 * Returns a bit array that is the reverse of a given bit array
+	 * @param ba the bit array to reverse
+	 * @return a bit array that is the reverse of the given bit array
+	 */
+	protected static boolean[] reverse(boolean[] ba){
 		int length = ba.length;
 		boolean[] out = new boolean[length];
 		for(int i = 0; i < length; i++){
