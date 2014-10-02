@@ -14,16 +14,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  * @param <S> the type of the second value
  */
 @CompileVersion(Version.V1_5) // Generics
-public interface Tuple2<T, S> extends Tuple<Object>{
-	/**
-	 * Returns the value of the first item
-	 * @return the value of the first item
-	 */
-	T getValueOne();
+public interface Tuple2<T, S> extends Tuple<Object>,
+Value1<T>, Value2<S>{
 
-	/**
-	 * Returns the value of the second item
-	 * @return the value of the second item
-	 */
-	S getValueTwo();
 }
