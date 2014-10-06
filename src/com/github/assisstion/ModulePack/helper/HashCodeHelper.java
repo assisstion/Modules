@@ -1,12 +1,15 @@
 package com.github.assisstion.ModulePack.helper;
 
-public class HashCodeHelper {
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
+public final class HashCodeHelper {
 	private HashCodeHelper(){}
-	
+
 	public static long hashCode(String s){
 		long returnValue = hashCode(s, 31);
 		return returnValue;
-		
+
 	}
 	public static long hashCode(String s, int i){
 		int returnValue = 0;

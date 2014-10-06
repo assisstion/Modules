@@ -1,5 +1,8 @@
 package com.github.assisstion.ModulePack.helper;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class PrimeHelper {
 
 	public static int relativelyPrime(int n1, int n2){

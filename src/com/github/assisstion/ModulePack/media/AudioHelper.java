@@ -12,6 +12,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class AudioHelper{
 
 	// Guarantee only one sound is playing at a time
@@ -48,7 +51,7 @@ public final class AudioHelper{
 
 		public AudioLooper(String location){
 			this.location = location;
-			ResourceManager.addAudioPlayer(this);
+			ResourceHelper.addAudioPlayer(this);
 		}
 
 		@Override
@@ -79,7 +82,7 @@ public final class AudioHelper{
 				e.printStackTrace();
 			}
 			finally{
-				ResourceManager.removeAudioPlayer(this);
+				ResourceHelper.removeAudioPlayer(this);
 			}
 		}
 
@@ -165,12 +168,12 @@ public final class AudioHelper{
 				private boolean paused;
 
 				{
-					ResourceManager.addAudioPlayer(this);
+					ResourceHelper.addAudioPlayer(this);
 				}
 
 				@Override
 				public void ready(){
-					ResourceManager.removeAudioPlayer(this);
+					ResourceHelper.removeAudioPlayer(this);
 				}
 
 				@Override

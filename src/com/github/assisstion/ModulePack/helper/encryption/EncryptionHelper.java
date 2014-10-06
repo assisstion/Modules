@@ -1,6 +1,7 @@
 package com.github.assisstion.ModulePack.helper.encryption;
 
 import com.github.assisstion.ModulePack.annotation.Dependency;
+import com.github.assisstion.ModulePack.annotation.Helper;
 import com.github.assisstion.ModulePack.helper.HashCodeHelper;
 
 /**
@@ -13,6 +14,7 @@ import com.github.assisstion.ModulePack.helper.HashCodeHelper;
  *
  */
 @Dependency(HashCodeHelper.class)
+@Helper
 public final class EncryptionHelper {
 	private EncryptionHelper(){}
 

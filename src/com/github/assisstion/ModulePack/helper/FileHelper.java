@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class FileHelper {
 
 	private FileHelper(){}

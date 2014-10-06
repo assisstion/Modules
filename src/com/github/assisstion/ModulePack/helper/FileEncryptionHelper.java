@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 import com.github.assisstion.ModulePack.annotation.Dependency;
+import com.github.assisstion.ModulePack.annotation.Helper;
 import com.github.assisstion.ModulePack.helper.encryption.SymbolicEncryptionHelper;
 
 
 @Dependency({FileHelper.class, SymbolicEncryptionHelper.class})
+@Helper
 public final class FileEncryptionHelper{
 
 	private FileEncryptionHelper(){

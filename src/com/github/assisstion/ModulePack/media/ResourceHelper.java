@@ -13,14 +13,17 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public final class ResourceManager{
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
+public final class ResourceHelper{
 
 	private static ConcurrentSkipListMap<String, BufferedImage> loadedImageResources = new ConcurrentSkipListMap<String, BufferedImage>();
 	private static ConcurrentSkipListMap<String, Clip> loadedAudioResources = new ConcurrentSkipListMap<String, Clip>();
 	private static boolean muted = false;
 	private static ConcurrentSkipListSet<AudioPlayable> audioPlayers = new ConcurrentSkipListSet<AudioPlayable>();
 
-	private ResourceManager(){
+	private ResourceHelper(){
 		// Not to be instantiated
 	}
 
@@ -38,7 +41,7 @@ public final class ResourceManager{
 	}
 
 	public static Clip getAudioResource(String location) throws IOException,
-			LineUnavailableException, UnsupportedAudioFileException{
+	LineUnavailableException, UnsupportedAudioFileException{
 		Clip audio;
 		if(loadedImageResources.containsKey(location)){
 			audio = loadedAudioResources.get(location);

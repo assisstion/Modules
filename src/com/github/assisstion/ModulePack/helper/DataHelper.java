@@ -11,6 +11,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class DataHelper{
 
 	private DataHelper(){

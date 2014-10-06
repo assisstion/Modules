@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class HashHelper{
 	private HashHelper(){
 		//Do nothing

@@ -3,6 +3,9 @@ package com.github.assisstion.ModulePack.helper;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class MapStringHelper{
 
 	private MapStringHelper(){

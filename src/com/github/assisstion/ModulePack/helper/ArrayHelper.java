@@ -6,8 +6,10 @@ import java.util.Set;
 
 import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.Dependency;
+import com.github.assisstion.ModulePack.annotation.Helper;
 
 @Dependency(Pair.class)
+@Helper
 public final class ArrayHelper{
 
 	private ArrayHelper(){}

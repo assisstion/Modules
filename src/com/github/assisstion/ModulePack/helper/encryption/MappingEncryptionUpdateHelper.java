@@ -2,11 +2,14 @@ package com.github.assisstion.ModulePack.helper.encryption;
 
 import java.util.Random;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
 /**
  * Simple encryption - No warranties!
  * @author mfeng17
  *
  */
+@Helper
 public final class MappingEncryptionUpdateHelper{
 	private MappingEncryptionUpdateHelper(){}
 
