@@ -1,7 +1,7 @@
 package com.github.assisstion.ModulePack.tuple;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * The Tuple interface represents a sequence of Objects together. It is
@@ -12,7 +12,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  *
  * @param <T> the type of each object in the tuple
  */
-@CompileVersion(Version.V1_5) // Generics
+@CompileVersion(JavaVersion.V1_5) // Generics
 public interface Tuple<T> extends Iterable<T>{
 
 	/**

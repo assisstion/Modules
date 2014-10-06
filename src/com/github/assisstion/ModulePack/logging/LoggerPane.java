@@ -20,10 +20,10 @@ import javax.swing.text.StyledDocument;
 import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 @Dependency(Pair.class)
-@CompileVersion(Version.V1_8) // Consumer<T>
+@CompileVersion(JavaVersion.V1_8) // Consumer<T>
 public class LoggerPane extends JPanel implements Consumer<String>{
 
 	public Logger log;

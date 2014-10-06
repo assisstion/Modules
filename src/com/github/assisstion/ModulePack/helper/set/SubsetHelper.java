@@ -9,6 +9,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.github.assisstion.ModulePack.annotation.Helper;
+
+@Helper
 public final class SubsetHelper{
 	private SubsetHelper(){
 		//Do nothing

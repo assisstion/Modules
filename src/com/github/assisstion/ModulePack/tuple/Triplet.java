@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * The Triplet class represents three typed Objects together. It is
@@ -20,7 +20,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  * @param <S> the type of the second value
  * @param <R> the type of the third value
  */
-@CompileVersion(Version.V1_5) // Generics
+@CompileVersion(JavaVersion.V1_5) // Generics
 public class Triplet<T, S, R> implements Tuple3<T, S, R>, Serializable{
 
 	private static final long serialVersionUID = 8379061245525375406L;

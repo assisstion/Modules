@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * An iterator that iterates over a Tuple
@@ -13,7 +13,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  *
  * @param <T> the type of the Tuple to iterate
  */
-@CompileVersion(Version.V1_5) // Generics
+@CompileVersion(JavaVersion.V1_5) // Generics
 public class TupleIterator<T> implements Iterator<T>{
 
 	protected Tuple<T> iterable;

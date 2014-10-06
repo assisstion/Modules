@@ -3,7 +3,7 @@ package com.github.assisstion.ModulePack;
 import java.io.Serializable;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * The Pair class represents two typed Objects together. It is
@@ -18,7 +18,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  * @param <T> the type of the first value
  * @param <S> the type of the second value
  */
-@CompileVersion(Version.V1_5) // Generics
+@CompileVersion(JavaVersion.V1_5) // Generics
 public class Pair<T, S> implements Serializable{
 
 	private static final long serialVersionUID = -8076809629855557338L;

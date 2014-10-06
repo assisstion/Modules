@@ -6,9 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
-@CompileVersion(Version.V1_4) // Logging
+@CompileVersion(JavaVersion.V1_4) // Logging
 public class LogWriter extends Writer {
 	private Logger log;
 	private Level level;

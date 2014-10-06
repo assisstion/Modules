@@ -5,8 +5,8 @@ package com.github.assisstion.ModulePack.annotation;
  *
  * @author Markus Feng
  */
-@CompileVersion(Version.V1_5) // Enum
-public enum Version{
+@CompileVersion(JavaVersion.V1_5) // Enum
+public enum JavaVersion{
 
 	/**
 	 * Created Java
@@ -97,7 +97,7 @@ public enum Version{
 	 */
 	protected final int minor;
 
-	private Version(int major, int minor){
+	private JavaVersion(int major, int minor){
 		this.major = major;
 		this.minor = minor;
 	}

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.Version;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * Represents an unsigned number. Includes built-in support for byte,
@@ -14,7 +14,7 @@ import com.github.assisstion.ModulePack.annotation.Version;
  *
  * @param <E> The original type of the number
  */
-@CompileVersion(Version.V1_5) // Generics
+@CompileVersion(JavaVersion.V1_5) // Generics
 public class UnsignedNumber<E extends Number> implements Serializable{
 
 	private static final long serialVersionUID = 7799997681922766654L;
