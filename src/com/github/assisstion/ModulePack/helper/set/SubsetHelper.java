@@ -9,14 +9,27 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Helper;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
+/**
+ * Finds the subsets of a set
+ *
+ * @author Markus Feng
+ */
 @Helper
+@CompileVersion(JavaVersion.V1_5) // Generics
 public final class SubsetHelper{
 	private SubsetHelper(){
 		//Do nothing
 	}
 
+	/**
+	 * Returns all of the subsets of a set
+	 * @param set the set to return the subsets of
+	 * @return all of the subsets of a set
+	 */
 	public static <T> Set<Set<T>> subsets(Set<T> set){
 		return new PowerSet<T>(set);
 	}

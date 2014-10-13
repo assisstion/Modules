@@ -12,6 +12,11 @@ import java.util.TreeMap;
 
 import com.github.assisstion.ModulePack.annotation.Helper;
 
+/**
+ * Finds the permutations of a list
+ *
+ * @author Markus Feng
+ */
 @Helper
 public final class CombinatoricHelper{
 
