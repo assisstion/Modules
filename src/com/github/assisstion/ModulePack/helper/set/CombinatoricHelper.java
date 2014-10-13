@@ -10,7 +10,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 
+import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Helper;
+import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * Finds the permutations of a list
@@ -18,6 +20,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
  * @author Markus Feng
  */
 @Helper
+@CompileVersion(JavaVersion.V1_5) // Generics
 public final class CombinatoricHelper{
 
 	private CombinatoricHelper(){
@@ -35,6 +38,12 @@ public final class CombinatoricHelper{
 		System.out.println(psi.size() + ":" + i);
 	}
 
+	/**
+	 * Returns a set of all of the permutations of the list.
+	 * @param list the list to make permutations of.
+	 * @param outLength the length of the output list.
+	 * @return the output list.
+	 */
 	public static <T> Set<List<T>> permutations(List<T> list, int outLength){
 		return new PermutationSet<T>(list, outLength);
 	}
