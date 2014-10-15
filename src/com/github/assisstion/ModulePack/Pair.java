@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.JavaVersion;
+import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
  * The Pair class represents two typed Objects together. It is
@@ -18,6 +19,7 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  * @param <T> the type of the first value
  * @param <S> the type of the second value
  */
+@LimitedImmutable({"valueOne", "valueTwo"})
 @CompileVersion(JavaVersion.V1_5) // Generics
 public class Pair<T, S> implements Serializable{
 

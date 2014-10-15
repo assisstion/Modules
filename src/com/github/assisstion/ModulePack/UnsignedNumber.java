@@ -5,6 +5,7 @@ import java.math.BigInteger;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.JavaVersion;
+import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
  * Represents an unsigned number. Includes built-in support for byte,
@@ -14,27 +15,28 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  *
  * @param <E> The original type of the number
  */
+@LimitedImmutable({"originalValue"})
 @CompileVersion(JavaVersion.V1_5) // Generics
 public class UnsignedNumber<E extends Number> implements Serializable{
-
+	
 	private static final long serialVersionUID = 7799997681922766654L;
-
+	
 	/**
 	 * The the number stored in a long
 	 */
 	protected long value;
-
+	
 	/**
 	 * The original value of the number
 	 */
 	protected E originalValue;
 	private int type;
-
+	
 	private static final int TYPE_BYTE = 0;
 	private static final int TYPE_SHORT = 1;
 	private static final int TYPE_INT = 2;
 	private static final int TYPE_LONG = 3;
-
+	
 	/**
 	 * Returns the signed value of the unsigned number
 	 * @return the signed value of the unsigned number
@@ -42,7 +44,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 	public E getSignedValue(){
 		return originalValue;
 	}
-
+	
 	/**
 	 * Returns the original class of the unsigned number
 	 * @return the original class of the unsigned number
@@ -50,7 +52,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 	public Class<? extends Number> getValueClass(){
 		return originalValue.getClass();
 	}
-
+	
 	/**
 	 * Creates an UnsignedNumber with the same value as a given number
 	 * @param number the UnsignedNumber to copy from
@@ -58,7 +60,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 	public UnsignedNumber(UnsignedNumber<? extends E> number){
 		this(number.getSignedValue());
 	}
-
+	
 	/**
 	 * Creates an UnsignedNumber with the given signed value
 	 * @param value the value of the UnsignedNumber
@@ -84,7 +86,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 			throw new IllegalArgumentException();
 		}
 	}
-
+	
 	/**
 	 * Returns the unsigned BigInteger value of the signed number
 	 * @return the unsigned BigInteger value of the signed number
@@ -98,7 +100,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 		}
 		return bi;
 	}
-
+	
 	/**
 	 * Returns the unsigned value of the signed number
 	 * @return the unsigned value of the signed number
@@ -112,7 +114,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 		}
 		return bi;
 	}
-
+	
 	/**
 	 * Returns the value represented as an array of bits
 	 * @return the value represented as an array of bits
@@ -137,7 +139,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 		}
 		return reverse(ba);
 	}
-
+	
 	private int typeBits(int type){
 		switch(type){
 			case TYPE_BYTE: return 8;
@@ -147,7 +149,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 			default: return 0;
 		}
 	}
-
+	
 	/**
 	 * Returns a bit array that is the reverse of a given bit array
 	 * @param ba the bit array to reverse
@@ -161,7 +163,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 		}
 		return out;
 	}
-
+	
 	/**
 	 * Creates a new UnsignedNumber with the given value
 	 * @param v1 the signed value
@@ -170,7 +172,7 @@ public class UnsignedNumber<E extends Number> implements Serializable{
 	public static <T extends Number> UnsignedNumber<T> make(T v1){
 		return new UnsignedNumber<T>(v1);
 	}
-
+	
 	/**
 	 * Creates a new UnsignedNumber with the given UnsignedNumber's value
 	 * @param v1 the signed value
