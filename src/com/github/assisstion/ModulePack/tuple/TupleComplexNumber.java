@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.github.assisstion.ModulePack.ComplexNumber;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
+import com.github.assisstion.ModulePack.annotation.Immutable;
 import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
@@ -15,6 +16,7 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  *
  * @author Markus Feng
  */
+@Immutable
 @Dependency(ComplexNumber.class)
 @CompileVersion(JavaVersion.V1_5) // Generics
 public class TupleComplexNumber extends ComplexNumber implements Tuple2<Double, Double>{

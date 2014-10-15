@@ -6,6 +6,7 @@ import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
 import com.github.assisstion.ModulePack.annotation.JavaVersion;
+import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
  * The TuplePair class extends the Pair class to provide additional
@@ -20,6 +21,7 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  * @param <T> the type of the first value
  * @param <S> the type of the second value
  */
+@LimitedImmutable({"valueOne", "valueTwo"})
 @Dependency(Pair.class)
 @CompileVersion(JavaVersion.V1_5) //Generics
 public class TuplePair<T, S> extends Pair<T, S> implements Tuple2<T, S>{
