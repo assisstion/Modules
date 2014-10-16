@@ -1,5 +1,9 @@
 package com.github.assisstion.ModulePack.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * A class marked as immutable to all public members.
  * This means that this class's values should not be changed
@@ -29,6 +33,9 @@ package com.github.assisstion.ModulePack.annotation;
  * @author Markus Feng
  *
  */
+@Documented
+@Target(ElementType.TYPE)
+@CompileVersion(JavaVersion.V1_5) // Annotation
 public @interface Immutable{
 
 }
