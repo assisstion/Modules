@@ -7,15 +7,15 @@ import java.util.Map;
 import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 @LimitedImmutable("baseUnits")
-public abstract class BaseUnitMap implements BaseUnits{
+public abstract class UnitSystem implements BaseUnits{
 
 	protected Map<Unit, Prefix> baseUnits;
 
-	public BaseUnitMap(){
+	public UnitSystem(){
 		baseUnits = new HashMap<Unit, Prefix>();
 	}
 
-	public BaseUnitMap(HashMap<Unit, Prefix> map){
+	public UnitSystem(HashMap<Unit, Prefix> map){
 		baseUnits = new HashMap<Unit, Prefix>(map);
 	}
 
@@ -30,4 +30,9 @@ public abstract class BaseUnitMap implements BaseUnits{
 
 	@Override
 	public abstract String getName();
+
+	@Override
+	public String toString(){
+		return getName();
+	}
 }

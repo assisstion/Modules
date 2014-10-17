@@ -11,6 +11,11 @@ public interface Prefix{
 		public BigFraction convert(BigFraction in){
 			return in;
 		}
+
+		@Override
+		public String toString(){
+			return "1";
+		}
 	};
 
 	BigFraction convert(BigFraction in);
@@ -36,5 +41,9 @@ public interface Prefix{
 			return in.multiply(bi);
 		}
 
+		@Override
+		public String toString(){
+			return bi.toString();
+		}
 	}
 }

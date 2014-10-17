@@ -56,4 +56,9 @@ public abstract class AbstractUnit implements Unit{
 
 	@Override
 	public abstract BigFraction toBaseMapping(BigFraction in);
+
+	@Override
+	public String toString(){
+		return getName();
+	}
 }

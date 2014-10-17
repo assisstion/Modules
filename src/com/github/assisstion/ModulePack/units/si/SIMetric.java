@@ -1,8 +1,8 @@
 package com.github.assisstion.ModulePack.units.si;
 
-import com.github.assisstion.ModulePack.units.BaseUnitMap;
 import com.github.assisstion.ModulePack.units.BaseUnits;
 import com.github.assisstion.ModulePack.units.Prefix;
+import com.github.assisstion.ModulePack.units.UnitSystem;
 import com.github.assisstion.ModulePack.units.si.SIBase.Ampere;
 import com.github.assisstion.ModulePack.units.si.SIBase.Candela;
 import com.github.assisstion.ModulePack.units.si.SIBase.Gram;
@@ -12,7 +12,7 @@ import com.github.assisstion.ModulePack.units.si.SIBase.Mole;
 import com.github.assisstion.ModulePack.units.si.SIBase.Second;
 
 
-public class SIMetric extends BaseUnitMap{
+public class SIMetric extends UnitSystem{
 
 	public static void main(String[] args){
 		System.out.println(get().getUnits());
