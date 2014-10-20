@@ -13,14 +13,14 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.logging.Logger;
 
+import javax.lang.model.SourceVersion;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
-@CompileVersion(JavaVersion.V1_4) // Logging
+@CompileVersion(SourceVersion.RELEASE_4) // Logging
 public abstract class LogPanel extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = -3723376082239462955L;

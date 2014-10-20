@@ -2,10 +2,11 @@ package com.github.assisstion.ModulePack.tuple;
 
 import java.util.Iterator;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
@@ -23,7 +24,7 @@ import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
  */
 @LimitedImmutable({"valueOne", "valueTwo"})
 @Dependency(Pair.class)
-@CompileVersion(JavaVersion.V1_5) //Generics
+@CompileVersion(SourceVersion.RELEASE_5) //Generics
 public class TuplePair<T, S> extends Pair<T, S> implements Tuple2<T, S>{
 
 	private static final long serialVersionUID = 5697357297873395851L;

@@ -2,11 +2,12 @@ package com.github.assisstion.ModulePack.tuple;
 
 import java.util.Iterator;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.ComplexNumber;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
 import com.github.assisstion.ModulePack.annotation.Immutable;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * The TupleComplexNumber class extends the ComplexNumber class to
@@ -18,7 +19,7 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  */
 @Immutable
 @Dependency(ComplexNumber.class)
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public class TupleComplexNumber extends ComplexNumber implements Tuple2<Double, Double>{
 
 	private static final long serialVersionUID = -7800445667042030038L;

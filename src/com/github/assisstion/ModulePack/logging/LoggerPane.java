@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javax.lang.model.SourceVersion;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -20,10 +21,9 @@ import javax.swing.text.StyledDocument;
 import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Dependency;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 @Dependency(Pair.class)
-@CompileVersion(JavaVersion.V1_8) // Consumer<T>
+@CompileVersion(SourceVersion.RELEASE_8) // Consumer<T>
 public class LoggerPane extends JPanel implements Consumer<String>{
 
 	public Logger log;

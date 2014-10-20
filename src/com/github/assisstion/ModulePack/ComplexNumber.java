@@ -2,9 +2,10 @@ package com.github.assisstion.ModulePack;
 
 import java.io.Serializable;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Immutable;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * Complex numbers represented with two doubles, one real
@@ -14,21 +15,21 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  * @author Markus Feng
  */
 @Immutable
-@CompileVersion(JavaVersion.V1_0)
+@CompileVersion(SourceVersion.RELEASE_0)
 public class ComplexNumber implements Serializable{
-	
+
 	private static final long serialVersionUID = -7777073479850468489L;
-	
+
 	/**
 	 * The real part
 	 */
 	protected double real = 0;
-	
+
 	/**
 	 * The imaginary part
 	 */
 	protected double imaginary = 0;
-	
+
 	/**
 	 * Creates a new ComplexNumber with the given values
 	 * @param real the real part of the ComplexNumber
@@ -38,7 +39,7 @@ public class ComplexNumber implements Serializable{
 		this.real = real;
 		this.imaginary = imaginary;
 	}
-	
+
 	/**
 	 * Creates a new ComplexNumber with the same values as a given ComplexNumber
 	 * @param cn the ComplexNumber to get the values from
@@ -47,7 +48,7 @@ public class ComplexNumber implements Serializable{
 		real = cn.getReal();
 		imaginary = cn.getImaginary();
 	}
-	
+
 	/**
 	 * Creates a new ComplexNumber with a real or imaginary value
 	 * @param value the value of the ComplexNumber
@@ -61,14 +62,14 @@ public class ComplexNumber implements Serializable{
 			real = value;
 		}
 	}
-	
+
 	/**
 	 * Creates an empty ComplexNumber
 	 */
 	protected ComplexNumber(){
-		
+
 	}
-	
+
 	/**
 	 * Returns a new ComplexNumber equal to the sum of this and another ComplexNumber
 	 * @param c the ComplexNumber to add this to
@@ -79,7 +80,7 @@ public class ComplexNumber implements Serializable{
 		double nImaginary = imaginary + c.imaginary;
 		return new ComplexNumber(nReal, nImaginary);
 	}
-	
+
 	/**
 	 * Returns a new ComplexNumber equal to the product of this and another ComplexNumber
 	 * @param c the ComplexNumber to multiply this with
@@ -90,7 +91,7 @@ public class ComplexNumber implements Serializable{
 		double nImaginary = imaginary * c.real + real * c.imaginary;
 		return new ComplexNumber(nReal, nImaginary);
 	}
-	
+
 	/**
 	 * Returns a new ComplexNumber equal to the difference of this and another ComplexNumber
 	 * @param c the ComplexNumber to subtract this by
@@ -101,7 +102,7 @@ public class ComplexNumber implements Serializable{
 		double nImaginary = imaginary - c.imaginary;
 		return new ComplexNumber(nReal, nImaginary);
 	}
-	
+
 	/**
 	 * Returns a new ComplexNumber equal to the quotient of this and another ComplexNumber
 	 * @param c the ComplexNumber to divide this by
@@ -112,7 +113,7 @@ public class ComplexNumber implements Serializable{
 		double nImaginary = (imaginary * c.real - real * c.imaginary) / (c.real * c.real + c.imaginary * c.imaginary);
 		return new ComplexNumber(nReal, nImaginary);
 	}
-	
+
 	/**
 	 * Returns a new ComplexNumber equal to the square root of this ComplexNumber
 	 * @return a new ComplexNumber equal to the square root of this ComplexNumber
@@ -123,7 +124,7 @@ public class ComplexNumber implements Serializable{
 		double nImaginary = imaginary > 0 ? d : -d;
 		return new ComplexNumber(nReal, nImaginary);
 	}
-	
+
 	/**
 	 * Returns if the ComplexNumber is infinite
 	 * @return if the ComplexNumber is infinite
@@ -134,7 +135,7 @@ public class ComplexNumber implements Serializable{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Returns if the ComplexNumber is NaN
 	 * @return if the ComplexNumber is NaN
@@ -145,7 +146,7 @@ public class ComplexNumber implements Serializable{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Returns the real part of the ComplexNumber
 	 * @return the real part of the ComplexNumber
@@ -153,7 +154,7 @@ public class ComplexNumber implements Serializable{
 	public double getReal(){
 		return real;
 	}
-	
+
 	/**
 	 * Returns the imaginary part of the ComplexNumber
 	 * @return the imaginary part of the ComplexNumber
@@ -161,7 +162,7 @@ public class ComplexNumber implements Serializable{
 	public double getImaginary(){
 		return imaginary;
 	}
-	
+
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof ComplexNumber){
@@ -172,17 +173,17 @@ public class ComplexNumber implements Serializable{
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return new Double(real).hashCode() ^ new Double(imaginary).hashCode() << 32 ^ new Double(imaginary).hashCode() >> 32;
 	}
-	
+
 	@Override
 	public String toString(){
 		return "r: " + real + " i: " + imaginary;
 	}
-	
+
 	/**
 	 * Creates a new ComplexNumber with the given values
 	 * @param real the real value
@@ -192,7 +193,7 @@ public class ComplexNumber implements Serializable{
 	public static ComplexNumber make(double real, double imaginary){
 		return new ComplexNumber(real, imaginary);
 	}
-	
+
 	/**
 	 * Creates a new ComplexNumber with the same values as a given ComplexNumber
 	 * @param cn the ComplexNumber to get the values from

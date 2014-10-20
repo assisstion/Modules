@@ -9,9 +9,10 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Helper;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /**
  * Finds the subsets of a set
@@ -19,7 +20,7 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  * @author Markus Feng
  */
 @Helper
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public final class SubsetHelper{
 	private SubsetHelper(){
 		//Do nothing

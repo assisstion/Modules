@@ -4,6 +4,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
+import javax.lang.model.SourceVersion;
+
 /**
  * Gives the lowest version of Java this program will compile on.
  * Not always evaluated to full accuracy.
@@ -12,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Target(ElementType.TYPE)
-@CompileVersion(JavaVersion.V1_5) // Annotation
+@CompileVersion(SourceVersion.RELEASE_5) // Annotation
 public @interface CompileVersion{
-	JavaVersion value();
+	SourceVersion value();
 }

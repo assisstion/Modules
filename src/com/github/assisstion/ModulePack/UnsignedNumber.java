@@ -2,8 +2,9 @@ package com.github.assisstion.ModulePack;
 
 import java.math.BigInteger;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
@@ -15,7 +16,7 @@ import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
  * @param <E> The original type of the number
  */
 @LimitedImmutable({"originalValue"})
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public class UnsignedNumber<E extends Number> extends Number{
 
 	private static final long serialVersionUID = 7799997681922766654L;

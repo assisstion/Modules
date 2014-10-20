@@ -3,8 +3,9 @@ package com.github.assisstion.ModulePack.tuple;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
@@ -22,7 +23,7 @@ import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
  * @param <R> the type of the third value
  */
 @LimitedImmutable({"valueOne", "valueTwo", "valueThree"})
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public class Triplet<T, S, R> implements Tuple3<T, S, R>, Serializable{
 
 	private static final long serialVersionUID = 8379061245525375406L;

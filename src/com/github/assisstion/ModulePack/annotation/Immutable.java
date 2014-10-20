@@ -4,6 +4,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
+import javax.lang.model.SourceVersion;
+
 /**
  * A class marked as immutable to all public members.
  * This means that this class's values should not be changed
@@ -35,7 +37,7 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Target(ElementType.TYPE)
-@CompileVersion(JavaVersion.V1_5) // Annotation
+@CompileVersion(SourceVersion.RELEASE_5) // Annotation
 public @interface Immutable{
 
 }

@@ -6,9 +6,10 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 //import java.util.Random;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Immutable;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 
 /** <p>
  *  Immutable fractions represented by a ratio of two BigIntegers. Operations use the operations of BigIntegers to modify the private fields.
@@ -28,7 +29,7 @@ import com.github.assisstion.ModulePack.annotation.JavaVersion;
  *  @author Markus Feng
  */
 @Immutable
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public class BigFraction extends Number implements Comparable<BigFraction>, Cloneable{
 
 	private static final long serialVersionUID = -1038055196274812800L;

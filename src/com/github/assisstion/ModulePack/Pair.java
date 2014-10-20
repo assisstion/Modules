@@ -2,8 +2,9 @@ package com.github.assisstion.ModulePack;
 
 import java.io.Serializable;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
@@ -20,7 +21,7 @@ import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
  * @param <S> the type of the second value
  */
 @LimitedImmutable({"valueOne", "valueTwo"})
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public class Pair<T, S> implements Serializable{
 
 	private static final long serialVersionUID = -8076809629855557338L;

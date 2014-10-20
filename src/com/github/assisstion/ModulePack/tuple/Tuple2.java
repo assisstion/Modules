@@ -1,7 +1,8 @@
 package com.github.assisstion.ModulePack.tuple;
 
+import javax.lang.model.SourceVersion;
+
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
-import com.github.assisstion.ModulePack.annotation.JavaVersion;
 import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
 
 /**
@@ -15,7 +16,7 @@ import com.github.assisstion.ModulePack.annotation.LimitedImmutable;
  * @param <S> the type of the second value
  */
 @LimitedImmutable({})
-@CompileVersion(JavaVersion.V1_5) // Generics
+@CompileVersion(SourceVersion.RELEASE_5) // Generics
 public interface Tuple2<T, S> extends Tuple<Object>,
 Value1<T>, Value2<S>{
 
