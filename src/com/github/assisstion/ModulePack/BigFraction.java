@@ -442,7 +442,7 @@ public class BigFraction extends Number implements Comparable<BigFraction>, Clon
 
 		private static BigFraction parse(String s){
 			try{
-				if(s.equals(null)){
+				if(s == null){
 					return null;
 				}
 				if(s.isEmpty()){
