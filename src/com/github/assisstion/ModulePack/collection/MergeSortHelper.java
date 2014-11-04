@@ -1,6 +1,7 @@
 package com.github.assisstion.ModulePack.collection;
 
 import java.util.Comparator;
+import java.util.Random;
 
 import javax.lang.model.SourceVersion;
 
@@ -24,11 +25,18 @@ public final class MergeSortHelper{
 
 	//Sample test
 	public static void main(String[] args){
-		Integer[] ia = {7, 11, 3, 5, 17, 2, 13};
+		Random random = new Random();
+		Integer[] ia = new Integer[1024];
+		for(int i = 0; i < ia.length; i++){
+			ia[i] = random.nextInt();
+		}
+		long n1 = System.nanoTime();
 		sort(ia);
+		long n2 = System.nanoTime();
 		for(int i : ia){
 			System.out.println(i);
 		}
+		System.out.println("Time elapsed (ns): " + (n2 - n1));
 	}
 
 	/**
