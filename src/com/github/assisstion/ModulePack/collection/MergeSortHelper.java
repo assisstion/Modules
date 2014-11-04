@@ -151,8 +151,6 @@ public final class MergeSortHelper{
 			indexA[bi] = target;
 		}
 		//The array should now be sorted
-		//Note: Items that are equal when compared to using
-		//the comparator may be in any order of each other
 	}
 
 	/**
