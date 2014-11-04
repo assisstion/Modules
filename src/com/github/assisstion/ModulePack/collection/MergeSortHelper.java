@@ -46,8 +46,9 @@ public final class MergeSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(T[] array, Comparator<T> comp){
-		sort(array, comp, 0, array.length);
+		sortRecursive(array, comp, 0, array.length);
 	}
+
 
 	/**
 	 * Sorts a part of an array using a specified comparator.
@@ -74,6 +75,10 @@ public final class MergeSortHelper{
 		if(array.length == 0 || array.length == 1){
 			return;
 		}
+		sortRecursive(array, comp, begin, end);
+	}
+
+	public static <T> void sortRecursive(T[] array, Comparator<T> comp, int begin, int end){
 		//A sorting section with no elements or one element needs not be sorted
 		if(begin == end || begin == end - 1){
 			return;
@@ -92,8 +97,8 @@ public final class MergeSortHelper{
 		//Split the array into half
 		int split = (end + begin) / 2;
 		//Sort each half of the array
-		sort(array, comp, begin, split);
-		sort(array, comp, split, end);
+		sortRecursive(array, comp, begin, split);
+		sortRecursive(array, comp, split, end);
 		//Create indexes for storing sorting data
 		int[] indexA = new int[end - begin];
 		int[] indexB = new int[end - begin];
