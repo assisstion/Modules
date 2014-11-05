@@ -1,7 +1,6 @@
 package com.github.assisstion.ModulePack.collection;
 
 import java.util.Comparator;
-import java.util.Random;
 
 import javax.lang.model.SourceVersion;
 
@@ -13,30 +12,21 @@ import com.github.assisstion.ModulePack.annotation.Helper;
  * Creates no new arrays of input type. However,
  * new int arrays are created as indexes to help
  * sort the arrays. The total size of all created
- * int arrays is less than twice the size of the
+ * int arrays is less than four times the size of the
  * initial array. All operations done to the
  * input array are flip/exchange operations.
+ *
+ * This sort is in-place and stable.
  *
  * @author Markus Feng
  */
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
+@Sorter
 public final class MergeSortHelper{
 
-	//Sample test
-	public static void main(String[] args){
-		Random random = new Random();
-		Integer[] ia = new Integer[1024];
-		for(int i = 0; i < ia.length; i++){
-			ia[i] = random.nextInt();
-		}
-		long n1 = System.nanoTime();
-		sort(ia);
-		long n2 = System.nanoTime();
-		for(int i : ia){
-			System.out.println(i);
-		}
-		System.out.println("Time elapsed (ns): " + (n2 - n1));
+	private MergeSortHelper(){
+
 	}
 
 	/**
@@ -53,7 +43,7 @@ public final class MergeSortHelper{
 	 * @param array the array to be sorted
 	 * @param comp the comparator to be used
 	 */
-	public static <T> void sort(T[] array, Comparator<T> comp){
+	public static <T> void sort(T[] array, Comparator<? super T> comp){
 		sortRecursive(array, comp, 0, array.length);
 	}
 
@@ -65,7 +55,7 @@ public final class MergeSortHelper{
 	 * @param begin the begin index of the sorted elements (inclusive)
 	 * @param end the end index of the sorted elements (exclusive)
 	 */
-	public static <T> void sort(T[] array, Comparator<T> comp, int begin, int end){
+	public static <T> void sort(T[] array, Comparator<? super T> comp, int begin, int end){
 		//Begin index cannot be larger than end index
 		if(begin > end){
 			throw new IllegalArgumentException("Begin index must be less" +
@@ -164,23 +154,5 @@ public final class MergeSortHelper{
 			indexA[bi] = target;
 		}
 		//The array should now be sorted
-	}
-
-	/**
-	 * A natural comparator implementation. Assumes the type implements
-	 * Comparable and uses the comparable implementation.
-	 *
-	 * @author Markus Feng
-	 *
-	 * @param <T> the type of the natural comparator
-	 */
-	public static class NaturalComparator<T extends Comparable<? super T>>
-	implements Comparator<T>{
-
-		@Override
-		public int compare(T o1, T o2){
-			return o1.compareTo(o2);
-		}
-
 	}
 }
