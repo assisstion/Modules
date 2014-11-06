@@ -31,10 +31,21 @@ public class SelectionSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp){
-		for(int i = 0; i < array.length - 1; i++){
+		sort(array, comp, 0, array.length);
+	}
+
+	/**
+	 * Sorts a part of an array using a specified comparator.
+	 * @param array the array to be sorted
+	 * @param comp the comparator to be used
+	 * @param begin the begin index of the sorted elements (inclusive)
+	 * @param end the end index of the sorted elements (exclusive)
+	 */
+	public static <T> void sort(T[] array, Comparator<? super T> comp, int begin, int end){
+		for(int i = begin; i < end - 1; i++){
 			T smallest = array[i];
 			int smallestIndex = i;
-			for(int j = i + 1; j < array.length; j++){
+			for(int j = i + 1; j < end; j++){
 				T current = array[j];
 				if(comp.compare(smallest, current) > 0){
 					smallest = current;
@@ -45,5 +56,4 @@ public class SelectionSortHelper{
 			array[i] = smallest;
 		}
 	}
-
 }

@@ -76,7 +76,7 @@ public final class InPlaceMergeSortHelper{
 		sortRecursive(array, comp, begin, end);
 	}
 
-	public static <T> void sortRecursive(T[] array, Comparator<T> comp, int begin, int end){
+	private static <T> void sortRecursive(T[] array, Comparator<T> comp, int begin, int end){
 		//A sorting section with no elements or one element needs not be sorted
 		if(begin == end || begin == end - 1){
 			return;

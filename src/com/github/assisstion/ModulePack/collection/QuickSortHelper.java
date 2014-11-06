@@ -10,9 +10,9 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter
-public final class CloningMergeSortHelper{
+public final class QuickSortHelper{
 
-	private CloningMergeSortHelper(){
+	private QuickSortHelper(){
 
 	}
 
@@ -31,7 +31,7 @@ public final class CloningMergeSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp){
-		sortRecursive(array, comp, 0, array.length);
+		sort(array, comp, 0, array.length);
 	}
 
 	/**
@@ -78,47 +78,40 @@ public final class CloningMergeSortHelper{
 			}
 			return;
 		}
-		//Split the array into half
-		int split = (end + begin) / 2;
-		//Sort each half of the array
-		sortRecursive(array, comp, begin, split);
-		sortRecursive(array, comp, split, end);
-		//Creates an unsorted array as a clone
-		T[] unsorted = array.clone();
-		int indexCounter = 0;
-		int counterLeft = begin;
-		int counterRight = split;
-		boolean complete = false;
-		//Merging the arrays
-		//Fills in the indexes; one plots the final position of
-		//the element to the element's index; the other plots the
-		//element at the given index to its final position
-		while(!complete){
-			T a = unsorted[counterLeft];
-			T b = unsorted[counterRight];
-			//Compares values, then adds the smaller
-			//one to the indexes
-			if(comp.compare(a, b) > 0){
-				array[begin + indexCounter++] = b;
-				counterRight++;
-				if(counterRight >= end){
-					//Copy the remaining values
-					System.arraycopy(unsorted, counterLeft, array,
-							begin + indexCounter, end - begin - indexCounter);
-					complete = true;
-				}
-			}
-			else{
-				array[begin + indexCounter++] = a;
-				counterLeft++;
-				if(counterLeft >= split){
-					//Copy the remaining values
-					System.arraycopy(unsorted, counterRight, array,
-							begin + indexCounter, end - begin - indexCounter);
-					complete = true;
-				}
+		//Choosing the pivot
+		int pivotC = begin / 2 + end / 2;
+		T init = array[begin];
+		T mid = array[pivotC];
+		T last = array[end - 1];
+		boolean initHigh = comp.compare(init, mid) > 0 ? true : false;
+		int pivotI;
+		{
+			pivotI = comp.compare(initHigh ? init : mid, last) > 0 ?
+					comp.compare(initHigh ? mid : init, last) > 0 ?
+							initHigh ? 1 : 0 : 2	: initHigh ? 0 : 1;
+		}
+		T pivot = pivotI <= 0 ? init : pivotI >= 2 ? last: mid;
+		int pivotIndex = pivotI <= 0 ? begin : pivotI >= 2 ? end - 1: pivotC;
+		array[end - 1] = pivot;
+		array[pivotIndex] = last;
+		int indexCounter = begin;
+		for(int i = begin; i < end - 1; i++){
+			T current = array[i];
+			if(comp.compare(current, pivot) <= 0){
+				T store = array[indexCounter];
+				array[i] = store;
+				array[indexCounter++] = current;
 			}
 		}
-		//The array should now be sorted
+		array[end - 1] = array[indexCounter];
+		array[indexCounter] = pivot;
+		if(indexCounter < pivotIndex){
+			sortRecursive(array, comp, begin, indexCounter);
+			sortRecursive(array, comp, indexCounter, end);
+		}
+		else{
+			sortRecursive(array, comp, indexCounter, end);
+			sortRecursive(array, comp, begin, indexCounter);
+		}
 	}
 }

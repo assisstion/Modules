@@ -16,12 +16,9 @@ public final class SortHelper{
 
 	//Sample test
 	public static void main(String[] args){
-		Class<?> clazz = CloningMergeSortHelper.class;
-		Random random = new Random();
-		Integer[] ia = new Integer[1024];
-		for(int i = 0; i < ia.length; i++){
-			ia[i] = random.nextInt();
-		}
+		Class<?> clazz = DynamicQuickSortHelper.class;
+		Integer[] ia = getTestingArray();
+		Integer[] backup = ia.clone();
 		long n1 = System.nanoTime();
 		try{
 			sort(clazz, ia);
@@ -38,11 +35,42 @@ public final class SortHelper{
 		}
 		System.out.println(clazz.getSimpleName() + " sort");
 		System.out.println("Sorted: " + SortHelper.isSorted(ia));
+		System.out.println("Verified: " + SortHelper.verify(backup, ia));
 		System.out.println("Time elapsed (ns): " + (n2 - n1));
+	}
+
+	private static Integer[] getTestingArray(){
+		Random random = new Random();
+		Integer[] ia = new Integer[1024];
+		for(int i = 0; i < ia.length; i++){
+			ia[i] = random.nextInt();
+		}
+		return ia;
 	}
 
 	public static <T extends Comparable<? super T>> boolean isSorted(T[] array){
 		return isSorted(array, new NaturalComparator<T>());
+	}
+
+	public static <T> boolean verify(T[] arrayA, T[] arrayB){
+		int bl = arrayB.length;
+		if(arrayA.length != bl){
+			return false;
+		}
+		boolean[] bIndex = new boolean[bl];
+		outer: for(int i = 0; i < arrayA.length; i++){
+			for(int j = 0; j < arrayB.length; j++){
+				if(bIndex[j] == true){
+					continue;
+				}
+				if(arrayB[j].equals(arrayA[i])){
+					bIndex[j] = true;
+					continue outer;
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 
 	public static <T> boolean isSorted(T[] array, Comparator<? super T> comparator){
@@ -76,7 +104,10 @@ public final class SortHelper{
 	}
 
 	public static <T> boolean fastSort(Class<?> clazz, T[] array, Comparator<? super T> comparator){
-		if(clazz.equals(BubbleSortHelper.class)){
+		if(clazz.equals(DynamicQuickSortHelper.class)){
+			DynamicQuickSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(BubbleSortHelper.class)){
 			BubbleSortHelper.sort(array, comparator);
 		}
 		else if(clazz.equals(CloningMergeSortHelper.class)){
@@ -90,6 +121,9 @@ public final class SortHelper{
 		}
 		else if(clazz.equals(SelectionSortHelper.class)){
 			SelectionSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(QuickSortHelper.class)){
+			QuickSortHelper.sort(array, comparator);
 		}
 		else{
 			return false;

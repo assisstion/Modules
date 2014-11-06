@@ -40,9 +40,20 @@ public final class InsertionSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp){
-		for(int i = 1; i < array.length; i++){
+		sort(array, comp, 0, array.length);
+	}
+
+	/**
+	 * Sorts a part of an array using a specified comparator.
+	 * @param array the array to be sorted
+	 * @param comp the comparator to be used
+	 * @param begin the begin index of the sorted elements (inclusive)
+	 * @param end the end index of the sorted elements (exclusive)
+	 */
+	public static <T> void sort(T[] array, Comparator<? super T> comp, int begin, int end){
+		for(int i = begin + 1; i < end; i++){
 			T current = array[i];
-			for(int swap = i; swap > 0; swap--){
+			for(int swap = i; swap > begin; swap--){
 				T compare = array[swap - 1];
 				if(comp.compare(current, compare) < 0){
 					array[swap] = compare;
