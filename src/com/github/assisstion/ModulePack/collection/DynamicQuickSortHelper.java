@@ -13,8 +13,8 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @Sorter
 public final class DynamicQuickSortHelper{
 
-	private static final int DEFAULT_INSERTION_CONST = 9;
-	private static int insertionConst = DEFAULT_INSERTION_CONST;
+	private static final int DEFAULT_INSERTION_CONST = 10;
+	//private static int insertionConst = DEFAULT_INSERTION_CONST;
 
 	//Basically a quicksort, insertion sort hybrid
 	private DynamicQuickSortHelper(){
@@ -47,7 +47,7 @@ public final class DynamicQuickSortHelper{
 	 * @param end the end index of the sorted elements (exclusive)
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp, int begin, int end){
-		if(end - begin < insertionConst){
+		if(end - begin < DEFAULT_INSERTION_CONST){
 			InsertionSortHelper.sort(array, comp, begin, end);
 			return;
 		}
@@ -148,7 +148,7 @@ public final class DynamicQuickSortHelper{
 		long minTotalTime = Long.MAX_VALUE;
 		int constant = 0;
 		for(int n = 4; n < 16; n++){
-			insertionConst = n;
+			//insertionConst = n;
 			long totalTime = 0;
 			for(int i = 0; i < trials; i++){
 				Integer[] i1 = iaa[i];
@@ -162,7 +162,7 @@ public final class DynamicQuickSortHelper{
 				constant = n;
 			}
 		}
-		insertionConst = DEFAULT_INSERTION_CONST;
+		//insertionConst = DEFAULT_INSERTION_CONST;
 		return constant;
 	}
 
