@@ -23,9 +23,9 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter
-public final class MergeSortHelper{
+public final class InPlaceMergeSortHelper{
 
-	private MergeSortHelper(){
+	private InPlaceMergeSortHelper(){
 
 	}
 

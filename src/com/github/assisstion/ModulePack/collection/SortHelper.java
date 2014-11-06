@@ -16,7 +16,7 @@ public final class SortHelper{
 
 	//Sample test
 	public static void main(String[] args){
-		Class<?> clazz = MergeSortHelper.class;
+		Class<?> clazz = CloningMergeSortHelper.class;
 		Random random = new Random();
 		Integer[] ia = new Integer[1024];
 		for(int i = 0; i < ia.length; i++){
@@ -63,6 +63,9 @@ public final class SortHelper{
 
 	public static <T> void sort(Class<?> clazz, T[] array, Comparator<? super T> comparator)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+		if(fastSort(clazz, array, comparator)){
+			return;
+		}
 		if(clazz.isAnnotationPresent(Sorter.class)){
 			Method sorter = clazz.getMethod("sort", Object[].class, Comparator.class);
 			sorter.invoke(null, array, comparator);
@@ -71,5 +74,28 @@ public final class SortHelper{
 			throw new ClassCastException("Missing annotation: @Sorter");
 		}
 	}
+
+	public static <T> boolean fastSort(Class<?> clazz, T[] array, Comparator<? super T> comparator){
+		if(clazz.equals(BubbleSortHelper.class)){
+			BubbleSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(CloningMergeSortHelper.class)){
+			CloningMergeSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(InPlaceMergeSortHelper.class)){
+			InPlaceMergeSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(InsertionSortHelper.class)){
+			InsertionSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(SelectionSortHelper.class)){
+			SelectionSortHelper.sort(array, comparator);
+		}
+		else{
+			return false;
+		}
+		return true;
+	}
+
 
 }
