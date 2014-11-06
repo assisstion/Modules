@@ -16,7 +16,7 @@ public final class SortHelper{
 
 	//Sample test
 	public static void main(String[] args){
-		Class<?> clazz = DynamicQuickSortHelper.class;
+		Class<?> clazz = HeapSortHelper.class;
 		Integer[] ia = getTestingArray();
 		Integer[] backup = ia.clone();
 		long n1 = System.nanoTime();
@@ -105,6 +105,9 @@ public final class SortHelper{
 
 	public static <T> boolean fastSort(Class<?> clazz, T[] array, Comparator<? super T> comparator){
 		if(clazz.equals(DynamicQuickSortHelper.class)){
+			DynamicQuickSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(HeapSortHelper.class)){
 			DynamicQuickSortHelper.sort(array, comparator);
 		}
 		else if(clazz.equals(BubbleSortHelper.class)){
