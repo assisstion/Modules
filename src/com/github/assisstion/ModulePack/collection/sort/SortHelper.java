@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.sort;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

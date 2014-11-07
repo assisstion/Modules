@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.sort;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.sort;
 
 import java.util.Comparator;
 
@@ -7,12 +7,25 @@ import javax.lang.model.SourceVersion;
 import com.github.assisstion.ModulePack.annotation.CompileVersion;
 import com.github.assisstion.ModulePack.annotation.Helper;
 
+/**
+ * Standard merge sort implementation.
+ * Creates no new arrays of input type. However,
+ * new int arrays are created as indexes to help
+ * sort the arrays. The total size of all created
+ * int arrays is less than four times the size of the
+ * initial array. All operations done to the
+ * input array are flip/exchange operations.
+ *
+ * This sort is in-place and stable.
+ *
+ * @author Markus Feng
+ */
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter
-public final class CloningMergeSortHelper{
+public final class InPlaceMergeSortHelper{
 
-	private CloningMergeSortHelper(){
+	private InPlaceMergeSortHelper(){
 
 	}
 
@@ -33,6 +46,7 @@ public final class CloningMergeSortHelper{
 	public static <T> void sort(T[] array, Comparator<? super T> comp){
 		sortRecursive(array, comp, 0, array.length);
 	}
+
 
 	/**
 	 * Sorts a part of an array using a specified comparator.
@@ -83,8 +97,9 @@ public final class CloningMergeSortHelper{
 		//Sort each half of the array
 		sortRecursive(array, comp, begin, split);
 		sortRecursive(array, comp, split, end);
-		//Creates an unsorted array as a clone
-		T[] unsorted = array.clone();
+		//Create indexes for storing sorting data
+		int[] indexA = new int[end - begin];
+		int[] indexB = new int[end - begin];
 		int indexCounter = 0;
 		int counterLeft = begin;
 		int counterRight = split;
@@ -94,30 +109,49 @@ public final class CloningMergeSortHelper{
 		//the element to the element's index; the other plots the
 		//element at the given index to its final position
 		while(!complete){
-			T a = unsorted[counterLeft];
-			T b = unsorted[counterRight];
+			T a = array[counterLeft];
+			T b = array[counterRight];
 			//Compares values, then adds the smaller
 			//one to the indexes
 			if(comp.compare(a, b) > 0){
-				array[begin + indexCounter++] = b;
-				counterRight++;
+				indexA[indexCounter] = counterRight - begin;
+				indexB[counterRight++ - begin] = indexCounter++;
 				if(counterRight >= end){
-					//Copy the remaining values
-					System.arraycopy(unsorted, counterLeft, array,
-							begin + indexCounter, end - begin - indexCounter);
+					//When one array is complete,
+					//add the remainder of the other to the index
+					while(counterLeft < split){
+						indexA[indexCounter] = counterLeft - begin;
+						indexB[counterLeft++ - begin] = indexCounter++;
+					}
 					complete = true;
 				}
 			}
 			else{
-				array[begin + indexCounter++] = a;
-				counterLeft++;
+				indexA[indexCounter] = counterLeft - begin;
+				indexB[counterLeft++ - begin] = indexCounter++;
 				if(counterLeft >= split){
-					//Copy the remaining values
-					System.arraycopy(unsorted, counterRight, array,
-							begin + indexCounter, end - begin - indexCounter);
+					//When one array is complete,
+					//add the remainder of the other to the index
+					while(counterRight < end){
+						indexA[indexCounter] = counterRight - begin;
+						indexB[counterRight++ - begin] = indexCounter++;
+					}
 					complete = true;
 				}
 			}
+		}
+		//Swaps the elements in the array such that the array is sorted
+		for(int i = 0; i < end - begin; i++){
+			int target = indexA[i];
+			T a = array[begin + target];
+			T b = array[begin + i];
+			array[begin + target] = b;
+			array[begin + i] = a;
+			int ai = indexB[target];
+			int bi = indexB[i];
+			indexB[target] = bi;
+			indexB[i] = ai;
+			indexA[bi] = target;
 		}
 		//The array should now be sorted
 	}
