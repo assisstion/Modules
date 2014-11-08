@@ -3,6 +3,7 @@ package com.github.assisstion.ModulePack.collection.sort;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +29,18 @@ public final class SortHelper{
 		TreeMap<Long, Class<?>> map = new TreeMap<Long, Class<?>>();
 		List<Class<?>> sorts = new ArrayList<Class<?>>();
 		sorts.add(DynamicQuickSortHelper.class);
+		sorts.add(QuickSortHelper.class);
 		sorts.add(HeapSortHelper.class);
-		sorts.add(BubbleSortHelper.class);
-		sorts.add(CloningMergeSortHelper.class);
+		sorts.add(DynamicMergeSortHelper.class);
 		sorts.add(InPlaceMergeSortHelper.class);
+		sorts.add(CloningMergeSortHelper.class);
 		sorts.add(InsertionSortHelper.class);
 		sorts.add(SelectionSortHelper.class);
-		sorts.add(QuickSortHelper.class);
+		sorts.add(BubbleSortHelper.class);
+		for(Class<?> clazz : sorts){
+			sampleTest(clazz, false);
+			System.out.println("--------");
+		}
 		for(Class<?> clazz : sorts){
 			long time = sampleTest(clazz, false);
 			System.out.println("--------");
@@ -47,6 +53,7 @@ public final class SortHelper{
 	}
 
 	public static long sampleTest(Class<?> clazz, boolean verbose){
+		System.out.println(clazz.getSimpleName() + " sort");
 		Integer[] ia = getTestingArray();
 		Integer[] backup = ia.clone();
 		long n1 = System.nanoTime();
@@ -65,7 +72,6 @@ public final class SortHelper{
 				System.out.println(i);
 			}
 		}
-		System.out.println(clazz.getSimpleName() + " sort");
 		System.out.println("Sorted: " + SortHelper.isSorted(ia));
 		System.out.println("Verified: " + SortHelper.verify(backup, ia));
 		System.out.println("Time elapsed (ns): " + (n2 - n1));
@@ -73,6 +79,7 @@ public final class SortHelper{
 	}
 
 	public static long stabilityTest(Class<?> clazz, boolean verbose){
+		System.out.println(clazz.getSimpleName() + " sort");
 		LeftSortedIntegerPair[] ia = getTestingIntegerPairs();
 		LeftSortedIntegerPair[] backup = ia.clone();
 		long n1 = System.nanoTime();
@@ -91,7 +98,6 @@ public final class SortHelper{
 				System.out.println(i);
 			}
 		}
-		System.out.println(clazz.getSimpleName() + " sort");
 		System.out.println("Sorted: " + SortHelper.isSorted(ia));
 		System.out.println("Verified: " + SortHelper.verify(backup, ia));
 		System.out.println("Stable: " + LeftSortedIntegerPair.isSorted(ia));
@@ -101,7 +107,7 @@ public final class SortHelper{
 
 	private static Integer[] getTestingArray(){
 		Random random = new Random();
-		Integer[] ia = new Integer[1024];
+		Integer[] ia = new Integer[65536];
 		for(int i = 0; i < ia.length; i++){
 			ia[i] = random.nextInt();
 		}
@@ -123,11 +129,13 @@ public final class SortHelper{
 		return isSorted(array, new NaturalComparator<T>());
 	}
 
-	public static <T> boolean verify(T[] arrayA, T[] arrayB){
+	public static <T extends Comparable<? super T>> boolean verify(T[] arrayA, T[] arrayB){
+		Comparator<T> comp = new NaturalComparator<T>();
 		int bl = arrayB.length;
 		if(arrayA.length != bl){
 			return false;
 		}
+		/*
 		boolean[] bIndex = new boolean[bl];
 		outer: for(int i = 0; i < arrayA.length; i++){
 			for(int j = 0; j < arrayB.length; j++){
@@ -140,6 +148,15 @@ public final class SortHelper{
 				}
 			}
 			return false;
+		}
+		return true;
+		 */
+		Arrays.sort(arrayA);
+		Arrays.sort(arrayB);
+		for(int i = 0; i < bl; i++){
+			if(comp.compare(arrayA[i], arrayB[i]) != 0){
+				return false;
+			}
 		}
 		return true;
 	}
@@ -165,7 +182,7 @@ public final class SortHelper{
 		if(fastSort(clazz, array, comparator)){
 			return;
 		}
-		if(clazz.isAnnotationPresent(Sorter.class)){
+		if(clazz.isAnnotationPresent(Sorter.class) && clazz.getAnnotationsByType(Sorter.class)[0].value().equals(Object[].class)){
 			Method sorter = clazz.getMethod("sort", Object[].class, Comparator.class);
 			sorter.invoke(null, array, comparator);
 		}
@@ -175,11 +192,14 @@ public final class SortHelper{
 	}
 
 	public static <T> boolean fastSort(Class<?> clazz, T[] array, Comparator<? super T> comparator){
-		if(clazz.equals(DynamicQuickSortHelper.class)){
+		if(clazz.equals(DynamicMergeSortHelper.class)){
+			DynamicMergeSortHelper.sort(array, comparator);
+		}
+		else if(clazz.equals(DynamicQuickSortHelper.class)){
 			DynamicQuickSortHelper.sort(array, comparator);
 		}
 		else if(clazz.equals(HeapSortHelper.class)){
-			DynamicQuickSortHelper.sort(array, comparator);
+			HeapSortHelper.sort(array, comparator);
 		}
 		else if(clazz.equals(BubbleSortHelper.class)){
 			BubbleSortHelper.sort(array, comparator);

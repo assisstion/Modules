@@ -9,7 +9,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
-@Sorter
+@Sorter(Object[].class)
 public final class HeapSortHelper{
 
 	private HeapSortHelper(){
@@ -76,10 +76,12 @@ public final class HeapSortHelper{
 				swapIndex = childIndex;
 				swap = child;
 			}
-			T rightChild = array[childIndex + 1];
-			if(childIndex + 1 < end && comp.compare(swap, rightChild) < 0){
-				swapIndex = childIndex + 1;
-				swap = rightChild;
+			if(childIndex + 1 < end){
+				T rightChild = array[childIndex + 1];
+				if(comp.compare(swap, rightChild) < 0){
+					swapIndex = childIndex + 1;
+					swap = rightChild;
+				}
 			}
 			if(swapIndex != rootIndex){
 				T root = array[rootIndex];
@@ -87,6 +89,10 @@ public final class HeapSortHelper{
 				array[swapIndex] = root;
 				rootIndex = swapIndex;
 			}
+			else{
+				return;
+			}
 		}
+
 	}
 }

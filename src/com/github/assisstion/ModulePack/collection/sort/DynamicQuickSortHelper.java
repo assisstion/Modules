@@ -10,10 +10,10 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
-@Sorter
+@Sorter(Object[].class)
 public final class DynamicQuickSortHelper{
 
-	private static final int DEFAULT_INSERTION_CONST = 10;
+	private static final int DEFAULT_INSERTION_CONST = 12;
 	//private static int insertionConst = DEFAULT_INSERTION_CONST;
 
 	//Basically a quicksort, insertion sort hybrid
@@ -47,10 +47,6 @@ public final class DynamicQuickSortHelper{
 	 * @param end the end index of the sorted elements (exclusive)
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp, int begin, int end){
-		if(end - begin < DEFAULT_INSERTION_CONST){
-			InsertionSortHelper.sort(array, comp, begin, end);
-			return;
-		}
 		//Begin index cannot be larger than end index
 		if(begin > end){
 			throw new IllegalArgumentException("Begin index must be less" +
@@ -72,6 +68,10 @@ public final class DynamicQuickSortHelper{
 	}
 
 	private static <T> void sortRecursive(T[] array, Comparator<T> comp, int begin, int end){
+		if(end - begin < DEFAULT_INSERTION_CONST){
+			InsertionSortHelper.sort(array, comp, begin, end);
+			return;
+		}
 		//A sorting section with no elements or one element needs not be sorted
 		if(begin == end || begin == end - 1){
 			return;
@@ -123,7 +123,6 @@ public final class DynamicQuickSortHelper{
 			sortRecursive(array, comp, begin, indexCounter);
 		}
 	}
-
 
 	public static void main(String[] args){
 		for(int i = 2; i <= 1024; i *= 2){

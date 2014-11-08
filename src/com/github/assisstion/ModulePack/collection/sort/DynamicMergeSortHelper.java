@@ -10,9 +10,11 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter(Object[].class)
-public final class QuickSortHelper{
+public final class DynamicMergeSortHelper{
 
-	private QuickSortHelper(){
+	private static final int DEFAULT_INSERTION_CONST = 12;
+
+	private DynamicMergeSortHelper(){
 
 	}
 
@@ -31,8 +33,9 @@ public final class QuickSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp){
-		sort(array, comp, 0, array.length);
+		sortRecursive(array, comp, 0, array.length);
 	}
+
 
 	/**
 	 * Sorts a part of an array using a specified comparator.
@@ -63,6 +66,10 @@ public final class QuickSortHelper{
 	}
 
 	private static <T> void sortRecursive(T[] array, Comparator<T> comp, int begin, int end){
+		if(end - begin < DEFAULT_INSERTION_CONST){
+			InsertionSortHelper.sort(array, comp, begin, end);
+			return;
+		}
 		//A sorting section with no elements or one element needs not be sorted
 		if(begin == end || begin == end - 1){
 			return;
@@ -78,40 +85,67 @@ public final class QuickSortHelper{
 			}
 			return;
 		}
-		//Choosing the pivot
-		int pivotC = begin / 2 + end / 2;
-		T init = array[begin];
-		T mid = array[pivotC];
-		T last = array[end - 1];
-		boolean initHigh = comp.compare(init, mid) > 0 ? true : false;
-		int pivotI;
-		{
-			pivotI = comp.compare(initHigh ? init : mid, last) > 0 ?
-					comp.compare(initHigh ? mid : init, last) > 0 ?
-							initHigh ? 1 : 0 : 2	: initHigh ? 0 : 1;
-		}
-		T pivot = pivotI <= 0 ? init : pivotI >= 2 ? last: mid;
-		int pivotIndex = pivotI <= 0 ? begin : pivotI >= 2 ? end - 1: pivotC;
-		array[end - 1] = pivot;
-		array[pivotIndex] = last;
-		int indexCounter = begin;
-		for(int i = begin; i < end - 1; i++){
-			T current = array[i];
-			if(comp.compare(current, pivot) <= 0){
-				T store = array[indexCounter];
-				array[i] = store;
-				array[indexCounter++] = current;
+		//Split the array into half
+		int split = (end + begin) / 2;
+		//Sort each half of the array
+		sortRecursive(array, comp, begin, split);
+		sortRecursive(array, comp, split, end);
+		//Create indexes for storing sorting data
+		int[] indexA = new int[end - begin];
+		int[] indexB = new int[end - begin];
+		int indexCounter = 0;
+		int counterLeft = begin;
+		int counterRight = split;
+		boolean complete = false;
+		//Merging the arrays
+		//Fills in the indexes; one plots the final position of
+		//the element to the element's index; the other plots the
+		//element at the given index to its final position
+		while(!complete){
+			T a = array[counterLeft];
+			T b = array[counterRight];
+			//Compares values, then adds the smaller
+			//one to the indexes
+			if(comp.compare(a, b) > 0){
+				indexA[indexCounter] = counterRight - begin;
+				indexB[counterRight++ - begin] = indexCounter++;
+				if(counterRight >= end){
+					//When one array is complete,
+					//add the remainder of the other to the index
+					while(counterLeft < split){
+						indexA[indexCounter] = counterLeft - begin;
+						indexB[counterLeft++ - begin] = indexCounter++;
+					}
+					complete = true;
+				}
+			}
+			else{
+				indexA[indexCounter] = counterLeft - begin;
+				indexB[counterLeft++ - begin] = indexCounter++;
+				if(counterLeft >= split){
+					//When one array is complete,
+					//add the remainder of the other to the index
+					while(counterRight < end){
+						indexA[indexCounter] = counterRight - begin;
+						indexB[counterRight++ - begin] = indexCounter++;
+					}
+					complete = true;
+				}
 			}
 		}
-		array[end - 1] = array[indexCounter];
-		array[indexCounter] = pivot;
-		if(indexCounter < pivotIndex){
-			sortRecursive(array, comp, begin, indexCounter);
-			sortRecursive(array, comp, indexCounter, end);
+		//Swaps the elements in the array such that the array is sorted
+		for(int i = 0; i < end - begin; i++){
+			int target = indexA[i];
+			T a = array[begin + target];
+			T b = array[begin + i];
+			array[begin + target] = b;
+			array[begin + i] = a;
+			int ai = indexB[target];
+			int bi = indexB[i];
+			indexB[target] = bi;
+			indexB[i] = ai;
+			indexA[bi] = target;
 		}
-		else{
-			sortRecursive(array, comp, indexCounter, end);
-			sortRecursive(array, comp, begin, indexCounter);
-		}
+		//The array should now be sorted
 	}
 }

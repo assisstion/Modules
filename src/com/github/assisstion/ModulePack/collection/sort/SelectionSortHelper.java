@@ -9,7 +9,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
-@Sorter
+@Sorter(Object[].class)
 public class SelectionSortHelper{
 
 	private SelectionSortHelper(){

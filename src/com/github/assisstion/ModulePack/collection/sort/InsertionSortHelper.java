@@ -18,7 +18,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
  */
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
-@Sorter
+@Sorter(Object[].class)
 public final class InsertionSortHelper{
 
 	private InsertionSortHelper(){
