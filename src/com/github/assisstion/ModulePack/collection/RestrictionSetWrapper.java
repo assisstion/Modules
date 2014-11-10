@@ -1,9 +1,9 @@
 package com.github.assisstion.ModulePack.collection;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T>{
 
@@ -25,21 +25,16 @@ public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T
 	}
 
 	protected static <T> Predicate<T> getDefaultChecker(){
-		return (t) -> true;
+		return t -> true;
 	}
 
 	//True if set is good
 	//False if purge happened
 	public boolean purge(){
-		Set<T> itemsToPurge = new HashSet<T>();
-		for(T t : get()){
-			if(!check(t)){
-				itemsToPurge.add(t);
-			}
-		}
-		for(T t : itemsToPurge){
-			get().remove(t);
-		}
+		Set<T> set = get();
+		Set<T> itemsToPurge = set.stream().filter(t -> !check(t))
+				.collect(Collectors.toSet());
+		itemsToPurge.forEach(t -> set.remove(t));
 		return itemsToPurge.size() == 0;
 	}
 
@@ -53,12 +48,8 @@ public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T
 
 	@Override
 	public boolean addAll(Collection<? extends T> c){
-		Set<T> set = new HashSet<T>();
-		set.forEach((t) -> {
-			if(check(t)){
-				set.add(t);
-			}
-		});
+		Set<T> set = c.stream().filter(t -> check(t))
+				.collect(Collectors.toSet());
 		return super.addAll(set);
 	}
 }

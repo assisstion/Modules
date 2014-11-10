@@ -2,11 +2,10 @@ package com.github.assisstion.ModulePack.collection;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
 public class RestrictionMapWrapper<T, S> extends MapWrapper<T, S> implements
 BiChecker<T, S>{
@@ -31,16 +30,12 @@ BiChecker<T, S>{
 	//True if map is good
 	//False if purge happened
 	public boolean purge(){
-		Set<T> keysToPurge = new HashSet<T>();
-		for(Map.Entry<T, S> entry : get().entrySet()){
-			T key = entry.getKey();
-			if(!check(key, entry.getValue())){
-				keysToPurge.add(key);
-			}
-		}
-		for(T t : keysToPurge){
-			get().remove(t);
-		}
+		Map<T, S> map = get();
+		Set<T> keysToPurge = map.entrySet().stream()
+				.filter((entry) -> !check(entry.getKey(), entry.getValue()))
+				.map((entry) -> entry.getKey())
+				.collect(Collectors.toSet());
+		keysToPurge.forEach((t) -> map.remove(t));
 		return keysToPurge.size() == 0;
 	}
 
@@ -54,12 +49,10 @@ BiChecker<T, S>{
 
 	@Override
 	public void putAll(Map<? extends T, ? extends S> newMap){
-		Map<T, S> newNewMap = new HashMap<T, S>();
-		newMap.forEach((t, s) -> {
-			if(check(t, s)){
-				newNewMap.put(t, s);
-			}
-		});
+		Map<T, S> newNewMap = newMap.entrySet().stream()
+				.filter(entry -> check(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toMap(entry -> entry.getKey(),
+						entry -> entry.getValue()));
 		super.putAll(newNewMap);
 	}
 
@@ -72,7 +65,7 @@ BiChecker<T, S>{
 	@Override
 	public Set<T> keySet(){
 		return new RestrictionSetWrapper<T>(super.keySet(),
-				(t) -> check(t, get().get(t)));
+				t -> check(t, get().get(t)));
 	}
 
 	@Override
