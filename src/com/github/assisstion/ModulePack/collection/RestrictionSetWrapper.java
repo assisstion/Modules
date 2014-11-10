@@ -3,7 +3,6 @@ package com.github.assisstion.ModulePack.collection;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T>{
@@ -55,24 +54,11 @@ public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T
 	@Override
 	public boolean addAll(Collection<? extends T> c){
 		Set<T> set = new HashSet<T>();
-		set.forEach(new SetCheckerWrapper(set));
-		return super.addAll(set);
-	}
-
-	protected class SetCheckerWrapper implements Consumer<T>{
-
-		protected Set<T> set;
-
-		public SetCheckerWrapper(Set<T> set){
-			this.set = set;
-		}
-
-		@Override
-		public void accept(T t){
+		set.forEach((t) -> {
 			if(check(t)){
 				set.add(t);
 			}
-		}
-
+		});
+		return super.addAll(set);
 	}
 }

@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 public class RestrictionMapWrapper<T, S> extends MapWrapper<T, S> implements
 BiChecker<T, S>{
@@ -57,19 +55,24 @@ BiChecker<T, S>{
 	@Override
 	public void putAll(Map<? extends T, ? extends S> newMap){
 		Map<T, S> newNewMap = new HashMap<T, S>();
-		newMap.forEach(new MapCheckerWrapper(newNewMap));
+		newMap.forEach((t, s) -> {
+			if(check(t, s)){
+				newNewMap.put(t, s);
+			}
+		});
 		super.putAll(newNewMap);
 	}
 
 	@Override
 	public Set<Map.Entry<T, S>> entrySet(){
 		return new RestrictionSetWrapper<Map.Entry<T, S>>(
-				super.entrySet(), this.new EntrySetChecker());
+				super.entrySet(), (entry) -> check(entry.getKey(), entry.getValue()));
 	}
 
 	@Override
 	public Set<T> keySet(){
-		return new RestrictionSetWrapper<T>(super.keySet(), this.new KeySetChecker());
+		return new RestrictionSetWrapper<T>(super.keySet(),
+				(t) -> check(t, get().get(t)));
 	}
 
 	@Override
@@ -79,40 +82,5 @@ BiChecker<T, S>{
 
 	protected static <T, S> BiFunction<T, S, Boolean> getDefaultChecker(){
 		return (t, s) -> true;
-	}
-
-	protected class MapCheckerWrapper implements BiConsumer<T, S>{
-
-		protected Map<T, S> putter;
-
-		public MapCheckerWrapper(Map<T, S> newNewMap){
-			putter = newNewMap;
-		}
-
-		@Override
-		public void accept(T t, S s){
-			if(check(t, s)){
-				putter.put(t, s);
-			}
-		}
-
-	}
-
-	protected class EntrySetChecker implements Function<Map.Entry<T, S>, Boolean>{
-
-		@Override
-		public Boolean apply(Map.Entry<T, S> entry){
-			return check(entry.getKey(), entry.getValue());
-		}
-
-	}
-
-	protected class KeySetChecker implements Function<T, Boolean>{
-
-		@Override
-		public Boolean apply(T t){
-			return check(t, get().get(t));
-		}
-
 	}
 }

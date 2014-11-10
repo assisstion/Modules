@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
 
 public class MultiSet<T> extends AbstractCollection<T>{
 
@@ -164,30 +163,14 @@ public class MultiSet<T> extends AbstractCollection<T>{
 	}
 
 	public Map<T, Integer> mapView(){
-		return new RestrictionMapWrapper<T, Integer>(
-				map, MultiSetMapChecker.getInstance());
-	}
-
-
-	protected static class MultiSetMapChecker<T> implements BiFunction<T, Integer, Boolean>{
-
-		private MultiSetMapChecker(){
-
-		}
-
-		@Override
-		public Boolean apply(T o, Integer value){
-			Objects.requireNonNull(value);
-			if(value < 1){
-				throw new IllegalArgumentException("Must have at least 1 element");
-			}
-			return true;
-		}
-
-		public static <T> MultiSetMapChecker<T> getInstance(){
-			return new MultiSetMapChecker<T>();
-		}
-
+		return new RestrictionMapWrapper<T, Integer>(map,
+				(o, value) -> {
+					Objects.requireNonNull(value);
+					if(value < 1){
+						throw new IllegalArgumentException("Must have at least 1 element");
+					}
+					return true;
+				});
 	}
 
 }
