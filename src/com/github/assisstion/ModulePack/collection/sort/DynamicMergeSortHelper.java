@@ -1,6 +1,7 @@
 package com.github.assisstion.ModulePack.collection.sort;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javax.lang.model.SourceVersion;
 
@@ -10,6 +11,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter(Object[].class)
+@Sorter(List.class)
 public final class DynamicMergeSortHelper{
 
 	private static final int DEFAULT_INSERTION_CONST = 12;
@@ -65,7 +67,7 @@ public final class DynamicMergeSortHelper{
 		sortRecursive(array, comp, begin, end);
 	}
 
-	private static <T> void sortRecursive(T[] array, Comparator<T> comp, int begin, int end){
+	private static <T> void sortRecursive(T[] array, Comparator<? super T> comp, int begin, int end){
 		if(end - begin < DEFAULT_INSERTION_CONST){
 			InsertionSortHelper.sort(array, comp, begin, end);
 			return;
@@ -140,6 +142,136 @@ public final class DynamicMergeSortHelper{
 			T b = array[begin + i];
 			array[begin + target] = b;
 			array[begin + i] = a;
+			int ai = indexB[target];
+			int bi = indexB[i];
+			indexB[target] = bi;
+			indexB[i] = ai;
+			indexA[bi] = target;
+		}
+		//The array should now be sorted
+	}
+
+	/**
+	 * Sorts the list using a natural comparator. List type must implement
+	 * Comparable<? super T>, where T is the list type.
+	 * @param list the list to be sorted
+	 */
+	public static <T extends Comparable<? super T>> void sort(List<T> list){
+		sort(list, new NaturalComparator<T>());
+	}
+
+	/**
+	 * Sorts the list using a specified comparator.
+	 * @param list the list to be sorted
+	 * @param comp the comparator to be used
+	 */
+	public static <T> void sort(List<T> list, Comparator<? super T> comp){
+		sortRecursive(list, comp, 0, list.size());
+	}
+
+	/**
+	 * Sorts a part of an array using a specified comparator.
+	 * @param array the array to be sorted
+	 * @param comp the comparator to be used
+	 * @param begin the begin index of the sorted elements (inclusive)
+	 * @param end the end index of the sorted elements (exclusive)
+	 */
+	public static <T> void sort(List<T> list, Comparator<? super T> comp, int begin, int end){
+		//Begin index cannot be larger than end index
+		if(begin > end){
+			throw new IllegalArgumentException("Begin index must be less" +
+					"than end index");
+		}
+		//Begin index cannot be out of bounds
+		if(begin > list.size() - 1){
+			throw new ArrayIndexOutOfBoundsException("For begin index: " + begin);
+		}
+		//End index cannot be out of bounds
+		if(end > list.size()){
+			throw new ArrayIndexOutOfBoundsException("For end index: " + end);
+		}
+		//An array with length of 0 or 1 needs not be sorted
+		if(list.size() == 0 || list.size() == 1){
+			return;
+		}
+		sortRecursive(list, comp, begin, end);
+	}
+
+	private static <T> void sortRecursive(List<T> array, Comparator<? super T> comp, int begin, int end){
+		if(end - begin < DEFAULT_INSERTION_CONST){
+			InsertionSortHelper.sort(array, comp, begin, end);
+			return;
+		}
+		//A sorting section with no elements or one element needs not be sorted
+		if(begin == end || begin == end - 1){
+			return;
+		}
+		//A sorting section with two elements can be sorted trivially
+		//Swap if the larger element precedes the smaller
+		if(begin == end - 2){
+			T a = array.get(begin);
+			T b = array.get(begin + 1);
+			if(comp.compare(a, b) > 0){
+				array.set(begin, b);
+				array.set(begin + 1, a);
+			}
+			return;
+		}
+		//Split the array into half
+		int split = (end + begin) / 2;
+		//Sort each half of the array
+		sortRecursive(array, comp, begin, split);
+		sortRecursive(array, comp, split, end);
+		//Create indexes for storing sorting data
+		int[] indexA = new int[end - begin];
+		int[] indexB = new int[end - begin];
+		int indexCounter = 0;
+		int counterLeft = begin;
+		int counterRight = split;
+		boolean complete = false;
+		//Merging the arrays
+		//Fills in the indexes; one plots the final position of
+		//the element to the element's index; the other plots the
+		//element at the given index to its final position
+		while(!complete){
+			T a = array.get(counterLeft);
+			T b = array.get(counterRight);
+			//Compares values, then adds the smaller
+			//one to the indexes
+			if(comp.compare(a, b) > 0){
+				indexA[indexCounter] = counterRight - begin;
+				indexB[counterRight++ - begin] = indexCounter++;
+				if(counterRight >= end){
+					//When one array is complete,
+					//add the remainder of the other to the index
+					while(counterLeft < split){
+						indexA[indexCounter] = counterLeft - begin;
+						indexB[counterLeft++ - begin] = indexCounter++;
+					}
+					complete = true;
+				}
+			}
+			else{
+				indexA[indexCounter] = counterLeft - begin;
+				indexB[counterLeft++ - begin] = indexCounter++;
+				if(counterLeft >= split){
+					//When one array is complete,
+					//add the remainder of the other to the index
+					while(counterRight < end){
+						indexA[indexCounter] = counterRight - begin;
+						indexB[counterRight++ - begin] = indexCounter++;
+					}
+					complete = true;
+				}
+			}
+		}
+		//Swaps the elements in the array such that the array is sorted
+		for(int i = 0; i < end - begin; i++){
+			int target = indexA[i];
+			T a = array.get(begin + target);
+			T b = array.get(begin + i);
+			array.set(begin + target, b);
+			array.set(begin + i, a);
 			int ai = indexB[target];
 			int bi = indexB[i];
 			indexB[target] = bi;

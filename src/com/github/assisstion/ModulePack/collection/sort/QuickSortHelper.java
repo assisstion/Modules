@@ -1,6 +1,7 @@
 package com.github.assisstion.ModulePack.collection.sort;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javax.lang.model.SourceVersion;
 
@@ -10,6 +11,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter(Object[].class)
+@Sorter(List.class)
 public final class QuickSortHelper{
 
 	private QuickSortHelper(){
@@ -105,6 +107,105 @@ public final class QuickSortHelper{
 		}
 		array[end - 1] = array[indexCounter];
 		array[indexCounter] = pivot;
+		if(indexCounter < pivotIndex){
+			sortRecursive(array, comp, begin, indexCounter);
+			sortRecursive(array, comp, indexCounter, end);
+		}
+		else{
+			sortRecursive(array, comp, indexCounter, end);
+			sortRecursive(array, comp, begin, indexCounter);
+		}
+	}
+
+	/**
+	 * Sorts the list using a natural comparator. List type must implement
+	 * Comparable<? super T>, where T is the list type.
+	 * @param list the list to be sorted
+	 */
+	public static <T extends Comparable<? super T>> void sort(List<T> list){
+		sort(list, new NaturalComparator<T>());
+	}
+
+	/**
+	 * Sorts the list using a specified comparator.
+	 * @param list the list to be sorted
+	 * @param comp the comparator to be used
+	 */
+	public static <T> void sort(List<T> list, Comparator<? super T> comp){
+		sortRecursive(list, comp, 0, list.size());
+	}
+
+	/**
+	 * Sorts a part of an array using a specified comparator.
+	 * @param array the array to be sorted
+	 * @param comp the comparator to be used
+	 * @param begin the begin index of the sorted elements (inclusive)
+	 * @param end the end index of the sorted elements (exclusive)
+	 */
+	public static <T> void sort(List<T> list, Comparator<? super T> comp, int begin, int end){
+		//Begin index cannot be larger than end index
+		if(begin > end){
+			throw new IllegalArgumentException("Begin index must be less" +
+					"than end index");
+		}
+		//Begin index cannot be out of bounds
+		if(begin > list.size() - 1){
+			throw new ArrayIndexOutOfBoundsException("For begin index: " + begin);
+		}
+		//End index cannot be out of bounds
+		if(end > list.size()){
+			throw new ArrayIndexOutOfBoundsException("For end index: " + end);
+		}
+		//An array with length of 0 or 1 needs not be sorted
+		if(list.size() == 0 || list.size() == 1){
+			return;
+		}
+		sortRecursive(list, comp, begin, end);
+	}
+
+	private static <T> void sortRecursive(List<T> array, Comparator<? super T> comp, int begin, int end){
+		//A sorting section with no elements or one element needs not be sorted
+		if(begin == end || begin == end - 1){
+			return;
+		}
+		//A sorting section with two elements can be sorted trivially
+		//Swap if the larger element precedes the smaller
+		if(begin == end - 2){
+			T a = array.get(begin);
+			T b = array.get(begin + 1);
+			if(comp.compare(a, b) > 0){
+				array.set(begin, b);
+				array.set(begin + 1, a);
+			}
+			return;
+		}
+		//Choosing the pivot
+		int pivotC = begin / 2 + end / 2;
+		T init = array.get(begin);
+		T mid = array.get(pivotC);
+		T last = array.get(end - 1);
+		boolean initHigh = comp.compare(init, mid) > 0 ? true : false;
+		int pivotI;
+		{
+			pivotI = comp.compare(initHigh ? init : mid, last) > 0 ?
+					comp.compare(initHigh ? mid : init, last) > 0 ?
+							initHigh ? 1 : 0 : 2	: initHigh ? 0 : 1;
+		}
+		T pivot = pivotI <= 0 ? init : pivotI >= 2 ? last: mid;
+		int pivotIndex = pivotI <= 0 ? begin : pivotI >= 2 ? end - 1: pivotC;
+		array.set(end - 1, pivot);
+		array.set(pivotIndex, last);
+		int indexCounter = begin;
+		for(int i = begin; i < end - 1; i++){
+			T current = array.get(i);
+			if(comp.compare(current, pivot) <= 0){
+				T store = array.get(indexCounter);
+				array.set(i, store);
+				array.set(indexCounter++, current);
+			}
+		}
+		array.set(end - 1, array.get(indexCounter));
+		array.set(indexCounter, pivot);
 		if(indexCounter < pivotIndex){
 			sortRecursive(array, comp, begin, indexCounter);
 			sortRecursive(array, comp, indexCounter, end);

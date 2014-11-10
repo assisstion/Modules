@@ -1,6 +1,7 @@
 package com.github.assisstion.ModulePack.collection.sort;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javax.lang.model.SourceVersion;
 
@@ -19,6 +20,7 @@ import com.github.assisstion.ModulePack.annotation.Helper;
 @CompileVersion(SourceVersion.RELEASE_5) //Generics
 @Helper
 @Sorter(Object[].class)
+@Sorter(List.class)
 public final class InsertionSortHelper{
 
 	private InsertionSortHelper(){
@@ -58,6 +60,47 @@ public final class InsertionSortHelper{
 				if(comp.compare(current, compare) < 0){
 					array[swap] = compare;
 					array[swap - 1] = current;
+				}
+				else{
+					break;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Sorts the list using a natural comparator. List type must implement
+	 * Comparable<? super T>, where T is the list type.
+	 * @param list the list to be sorted
+	 */
+	public static <T extends Comparable<? super T>> void sort(List<T> list){
+		sort(list, new NaturalComparator<T>());
+	}
+
+	/**
+	 * Sorts the list using a specified comparator.
+	 * @param list the list to be sorted
+	 * @param comp the comparator to be used
+	 */
+	public static <T> void sort(List<T> list, Comparator<? super T> comp){
+		sort(list, comp, 0, list.size());
+	}
+
+	/**
+	 * Sorts a part of an list using a specified comparator.
+	 * @param list the list to be sorted
+	 * @param comp the comparator to be used
+	 * @param begin the begin index of the sorted elements (inclusive)
+	 * @param end the end index of the sorted elements (exclusive)
+	 */
+	public static <T> void sort(List<T> list, Comparator<? super T> comp, int begin, int end){
+		for(int i = begin + 1; i < end; i++){
+			T current = list.get(i);
+			for(int swap = i; swap > begin; swap--){
+				T compare = list.get(swap - 1);
+				if(comp.compare(current, compare) < 0){
+					list.set(swap, compare);
+					list.set(swap - 1, current);
 				}
 				else{
 					break;
