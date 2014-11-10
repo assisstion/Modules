@@ -3,28 +3,28 @@ package com.github.assisstion.ModulePack.collection;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T>{
 
-	protected Function<T, Boolean> checker = getDefaultChecker();
+	protected Predicate<T> checker = getDefaultChecker();
 
 	public RestrictionSetWrapper(Set<T> set){
 		super(set);
 		purge();
 	}
 
-	public RestrictionSetWrapper(Set<T> set, Function<T, Boolean> checker){
+	public RestrictionSetWrapper(Set<T> set, Predicate<T> checker){
 		this(set);
 		this.checker = checker;
 	}
 
 	@Override
-	public Function<T, Boolean> getChecker(){
+	public Predicate<T> getChecker(){
 		return checker;
 	}
 
-	protected static <T> Function<T, Boolean> getDefaultChecker(){
+	protected static <T> Predicate<T> getDefaultChecker(){
 		return (t) -> true;
 	}
 

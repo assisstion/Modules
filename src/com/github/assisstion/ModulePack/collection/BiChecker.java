@@ -1,11 +1,11 @@
 package com.github.assisstion.ModulePack.collection;
 
-import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 
 @FunctionalInterface
 public interface BiChecker<T, S>{
-	BiFunction<T, S, Boolean> getChecker();
+	BiPredicate<T, S> getChecker();
 	default boolean check(T t, S s){
-		return getChecker().apply(t, s);
+		return getChecker().test(t, s);
 	}
 }

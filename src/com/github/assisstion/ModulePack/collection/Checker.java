@@ -1,11 +1,12 @@
 package com.github.assisstion.ModulePack.collection;
 
-import java.util.function.Function;
+import java.util.function.Predicate;
+
 
 @FunctionalInterface
 public interface Checker<T>{
-	Function<T, Boolean> getChecker();
+	Predicate<T> getChecker();
 	default boolean check(T t){
-		return getChecker().apply(t);
+		return getChecker().test(t);
 	}
 }

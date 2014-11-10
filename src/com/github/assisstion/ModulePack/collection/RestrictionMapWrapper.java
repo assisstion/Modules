@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 
 public class RestrictionMapWrapper<T, S> extends MapWrapper<T, S> implements
 BiChecker<T, S>{
 
-	protected BiFunction<T, S, Boolean> checker = getDefaultChecker();
+	protected BiPredicate<T, S> checker = getDefaultChecker();
 
 	@Override
-	public BiFunction<T, S, Boolean> getChecker(){
+	public BiPredicate<T, S> getChecker(){
 		return checker;
 	}
 
@@ -23,7 +23,7 @@ BiChecker<T, S>{
 		purge();
 	}
 
-	public RestrictionMapWrapper(Map<T, S> map, BiFunction<T, S, Boolean> checker){
+	public RestrictionMapWrapper(Map<T, S> map, BiPredicate<T, S> checker){
 		this(map);
 		this.checker = checker;
 	}
@@ -80,7 +80,7 @@ BiChecker<T, S>{
 		return Collections.unmodifiableCollection(super.values());
 	}
 
-	protected static <T, S> BiFunction<T, S, Boolean> getDefaultChecker(){
+	protected static <T, S> BiPredicate<T, S> getDefaultChecker(){
 		return (t, s) -> true;
 	}
 }
