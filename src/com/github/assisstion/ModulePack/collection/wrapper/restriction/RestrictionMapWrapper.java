@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.wrapper.restriction;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
+
+import com.github.assisstion.ModulePack.collection.wrapper.MapWrapper;
 
 public class RestrictionMapWrapper<T, S> extends MapWrapper<T, S> implements
 BiChecker<T, S>{

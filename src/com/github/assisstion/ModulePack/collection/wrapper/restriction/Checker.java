@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.wrapper.restriction;
 
 import java.util.function.Predicate;
 

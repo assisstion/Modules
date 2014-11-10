@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.wrapper;
 
 import java.util.function.Supplier;
 

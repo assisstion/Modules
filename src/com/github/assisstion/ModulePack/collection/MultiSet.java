@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
+import com.github.assisstion.ModulePack.collection.wrapper.restriction.RestrictionMapWrapper;
+
 public class MultiSet<T> extends AbstractCollection<T>{
 
 	protected Map<T, Integer> map;

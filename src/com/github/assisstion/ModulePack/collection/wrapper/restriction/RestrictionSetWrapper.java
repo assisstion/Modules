@@ -1,9 +1,11 @@
-package com.github.assisstion.ModulePack.collection;
+package com.github.assisstion.ModulePack.collection.wrapper.restriction;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import com.github.assisstion.ModulePack.collection.wrapper.SetWrapper;
 
 public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T>{
 
