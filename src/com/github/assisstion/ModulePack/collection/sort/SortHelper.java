@@ -470,8 +470,11 @@ public final class SortHelper{
 
 	}
 
+	public static <T extends Comparable<? super T>, S> void sort(Class<?> clazz, S list){
+		sort(clazz, list, new NaturalComparator<T>());
+	}
 
-	public static <T, S> void sort(S list, Comparator<? super T> comp, Class<?> clazz){
+	public static <T, S> void sort(Class<?> clazz, S list, Comparator<? super T> comp){
 		try{
 			for(Sorter sorter : clazz.getAnnotationsByType(Sorter.class)){
 				if(sorter.value().isInstance(list)){
@@ -487,7 +490,7 @@ public final class SortHelper{
 	}
 
 	public static <T, S> BiConsumer<S, Comparator<? super T>> getSorter(Class<?> clazz){
-		return (t, s) -> sort(t, s, clazz);
+		return (t, s) -> sort(clazz, t, s);
 	}
 
 }
