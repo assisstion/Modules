@@ -41,7 +41,7 @@ public class RestrictionSetWrapper<T> extends SetWrapper<T> implements Checker<T
 	@Override
 	public boolean add(T t){
 		if(check(t)){
-			return get().add(t);
+			return super.add(t);
 		}
 		return false;
 	}

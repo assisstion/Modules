@@ -42,7 +42,7 @@ BiChecker<T, S>{
 	@Override
 	public S put(T key, S value){
 		if(check(key, value)){
-			return get().put(key, value);
+			return super.put(key, value);
 		}
 		return null;
 	}

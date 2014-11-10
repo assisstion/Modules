@@ -55,6 +55,16 @@ public class MultiSet<T> extends AbstractCollection<T>{
 		return false;
 	}
 
+	@Override
+	public boolean isEmpty(){
+		return map.isEmpty();
+	}
+
+	@Override
+	public void clear(){
+		map.clear();
+	}
+
 	/*
 	@Override
 	public Object[] toArray(){
@@ -110,7 +120,6 @@ public class MultiSet<T> extends AbstractCollection<T>{
 	protected class MultiSetIterator implements Iterator<T>{
 
 		protected Iterator<Map.Entry<T, Integer>> mapIterator;
-		protected Map.Entry<T, Integer> lastEntry;
 		protected Map.Entry<T, Integer> currentEntry;
 		protected int currentIndex;
 		protected boolean allowRemove = false;
@@ -126,7 +135,7 @@ public class MultiSet<T> extends AbstractCollection<T>{
 			}
 			allowRemove = false;
 			currentIndex++;
-			int i = lastEntry.getValue();
+			int i = currentEntry.getValue();
 			if(i <= 1){
 				mapIterator.remove();
 			}
