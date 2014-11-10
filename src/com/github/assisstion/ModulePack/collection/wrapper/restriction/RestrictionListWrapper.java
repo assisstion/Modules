@@ -56,12 +56,12 @@ public class RestrictionListWrapper<T> extends ListWrapper<T> implements Checker
 
 	@Override
 	public ListIterator<T> listIterator(){
-		return new RestrictionListIterator<T>(get().listIterator(), getChecker());
+		return new RestrictionListIteratorWrapper<T>(get().listIterator(), getChecker());
 	}
 
 	@Override
 	public ListIterator<T> listIterator(int index){
-		return new RestrictionListIterator<T>(get().listIterator(index), getChecker());
+		return new RestrictionListIteratorWrapper<T>(get().listIterator(index), getChecker());
 	}
 
 	@Override
