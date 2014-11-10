@@ -3,6 +3,7 @@ package com.github.assisstion.ModulePack.collection.sort;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import javax.lang.model.SourceVersion;
 
@@ -231,5 +232,13 @@ public final class CloningMergeSortHelper{
 			}
 		}
 		//The list should now be sorted
+	}
+
+	public static <T> BiConsumer<T[], Comparator<? super T>> getArraySorter(){
+		return CloningMergeSortHelper::sort;
+	}
+
+	public static <T> BiConsumer<List<T>, Comparator<? super T>> getListSorter(){
+		return CloningMergeSortHelper::sort;
 	}
 }

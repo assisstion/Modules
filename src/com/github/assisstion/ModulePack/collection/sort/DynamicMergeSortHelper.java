@@ -2,6 +2,7 @@ package com.github.assisstion.ModulePack.collection.sort;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import javax.lang.model.SourceVersion;
 
@@ -279,5 +280,13 @@ public final class DynamicMergeSortHelper{
 			indexA[bi] = target;
 		}
 		//The array should now be sorted
+	}
+
+	public static <T> BiConsumer<T[], Comparator<? super T>> getArraySorter(){
+		return DynamicMergeSortHelper::sort;
+	}
+
+	public static <T> BiConsumer<List<T>, Comparator<? super T>> getListSorter(){
+		return DynamicMergeSortHelper::sort;
 	}
 }

@@ -2,6 +2,7 @@ package com.github.assisstion.ModulePack.collection.sort;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import javax.lang.model.SourceVersion;
 
@@ -76,5 +77,13 @@ public final class BubbleSortHelper{
 				}
 			}
 		}
+	}
+
+	public static <T> BiConsumer<T[], Comparator<? super T>> getArraySorter(){
+		return BubbleSortHelper::sort;
+	}
+
+	public static <T> BiConsumer<List<T>, Comparator<? super T>> getListSorter(){
+		return BubbleSortHelper::sort;
 	}
 }

@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.function.BiConsumer;
 
 import com.github.assisstion.ModulePack.Pair;
 import com.github.assisstion.ModulePack.annotation.Helper;
@@ -379,71 +381,51 @@ public final class SortHelper{
 	}
 
 	public static <T> boolean fastSort(Class<?> clazz, T[] array, Comparator<? super T> comparator){
-		if(clazz.equals(DynamicMergeSortHelper.class)){
-			DynamicMergeSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(DynamicQuickSortHelper.class)){
-			DynamicQuickSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(HeapSortHelper.class)){
-			HeapSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(BubbleSortHelper.class)){
-			BubbleSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(CloningMergeSortHelper.class)){
-			CloningMergeSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(InPlaceMergeSortHelper.class)){
-			InPlaceMergeSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(InsertionSortHelper.class)){
-			InsertionSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(SelectionSortHelper.class)){
-			SelectionSortHelper.sort(array, comparator);
-		}
-		else if(clazz.equals(QuickSortHelper.class)){
-			QuickSortHelper.sort(array, comparator);
-		}
-		else{
+		Map<Class<?>, BiConsumer<T[], Comparator<? super T>>> map = arraySorts(array);
+		if(!map.containsKey(clazz)){
 			return false;
 		}
+		map.get(clazz).accept(array, comparator);
 		return true;
 	}
 
 	public static <T> boolean fastSort(Class<?> clazz, List<T> list, Comparator<? super T> comparator){
-		if(clazz.equals(DynamicMergeSortHelper.class)){
-			DynamicMergeSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(DynamicQuickSortHelper.class)){
-			DynamicQuickSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(HeapSortHelper.class)){
-			HeapSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(BubbleSortHelper.class)){
-			BubbleSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(CloningMergeSortHelper.class)){
-			CloningMergeSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(InPlaceMergeSortHelper.class)){
-			InPlaceMergeSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(InsertionSortHelper.class)){
-			InsertionSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(SelectionSortHelper.class)){
-			SelectionSortHelper.sort(list, comparator);
-		}
-		else if(clazz.equals(QuickSortHelper.class)){
-			QuickSortHelper.sort(list, comparator);
-		}
-		else{
+		Map<Class<?>, BiConsumer<List<T>, Comparator<? super T>>> map = listSorts(list);
+		if(!map.containsKey(clazz)){
 			return false;
 		}
+		map.get(clazz).accept(list, comparator);
 		return true;
+	}
+
+	protected static <T> Map<Class<?>, BiConsumer<List<T>, Comparator<? super T>>> listSorts(List<T> list){
+		Map<Class<?>, BiConsumer<List<T>, Comparator<? super T>>> map =
+				new HashMap<Class<?>, BiConsumer<List<T>, Comparator<? super T>>>();
+		map.put(DynamicMergeSortHelper.class, DynamicMergeSortHelper.getListSorter());
+		map.put(DynamicQuickSortHelper.class, DynamicQuickSortHelper.getListSorter());
+		map.put(HeapSortHelper.class, HeapSortHelper.getListSorter());
+		map.put(BubbleSortHelper.class, BubbleSortHelper.getListSorter());
+		map.put(CloningMergeSortHelper.class, CloningMergeSortHelper.getListSorter());
+		map.put(InPlaceMergeSortHelper.class, InPlaceMergeSortHelper.getListSorter());
+		map.put(InsertionSortHelper.class, InsertionSortHelper.getListSorter());
+		map.put(SelectionSortHelper.class, SelectionSortHelper.getListSorter());
+		map.put(QuickSortHelper.class, QuickSortHelper.getListSorter());
+		return map;
+	}
+
+	protected static <T> Map<Class<?>, BiConsumer<T[], Comparator<? super T>>> arraySorts(T[] array){
+		Map<Class<?>, BiConsumer<T[], Comparator<? super T>>> map =
+				new HashMap<Class<?>, BiConsumer<T[], Comparator<? super T>>>();
+		map.put(DynamicMergeSortHelper.class, DynamicMergeSortHelper.getArraySorter());
+		map.put(DynamicQuickSortHelper.class, DynamicQuickSortHelper.getArraySorter());
+		map.put(HeapSortHelper.class, HeapSortHelper.getArraySorter());
+		map.put(BubbleSortHelper.class, BubbleSortHelper.getArraySorter());
+		map.put(CloningMergeSortHelper.class, CloningMergeSortHelper.getArraySorter());
+		map.put(InPlaceMergeSortHelper.class, InPlaceMergeSortHelper.getArraySorter());
+		map.put(InsertionSortHelper.class, InsertionSortHelper.getArraySorter());
+		map.put(SelectionSortHelper.class, SelectionSortHelper.getArraySorter());
+		map.put(QuickSortHelper.class, QuickSortHelper.getArraySorter());
+		return map;
 	}
 
 	private static class LeftSortedIntegerPair extends Pair<Integer, Integer>
@@ -486,6 +468,26 @@ public final class SortHelper{
 			return Integer.compare(getValueOne(), o.getValueOne());
 		}
 
+	}
+
+
+	public static <T, S> void sort(S list, Comparator<? super T> comp, Class<?> clazz){
+		try{
+			for(Sorter sorter : clazz.getAnnotationsByType(Sorter.class)){
+				if(sorter.value().isInstance(list)){
+					Method m = clazz.getMethod(
+							"sort", sorter.value(), Comparator.class);
+					m.invoke(list, comp);
+				}
+			}
+		}
+		catch(Exception e){
+			throw new RuntimeException("Invocation exception during sorting", e);
+		}
+	}
+
+	public static <T, S> BiConsumer<S, Comparator<? super T>> getSorter(Class<?> clazz){
+		return (t, s) -> sort(t, s, clazz);
 	}
 
 }
