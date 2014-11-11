@@ -21,12 +21,12 @@ BiChecker<T, S>{
 
 	public RestrictionMapWrapper(Map<T, S> map){
 		super(map);
-		purge();
 	}
 
 	public RestrictionMapWrapper(Map<T, S> map, BiPredicate<T, S> checker){
-		this(map);
+		super(map);
 		this.checker = checker;
+		purge();
 	}
 
 	//True if map is good

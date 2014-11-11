@@ -16,6 +16,19 @@ public class MultiSet<T> extends AbstractCollection<T>{
 		map = new HashMap<T, Integer>();
 	}
 
+	public MultiSet(Map<T, Integer> map){
+		this.map = map;
+		//Purges the map
+		new RestrictionMapWrapper<T, Integer>(map,
+				(o, value) -> {
+					Objects.requireNonNull(value);
+					if(value < 1){
+						throw new IllegalArgumentException("Must have at least 1 element");
+					}
+					return true;
+				});
+	}
+
 	@Override
 	public boolean contains(Object o){
 		return map.containsKey(o);
