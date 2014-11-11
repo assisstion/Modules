@@ -1,8 +1,8 @@
 package com.github.assisstion.ModulePack.collection;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.github.assisstion.ModulePack.collection.sort.InPlaceMergeSortHelper;
@@ -19,7 +19,7 @@ public class SortedList<T> extends ListWrapper<T>{
 	}
 
 	public SortedList(Comparator<? super T> comp){
-		super(new ArrayList<T>());
+		super(new LinkedList<T>());
 		this.comp = comp;
 		sort();
 	}
