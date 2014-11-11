@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.collection.wrapper.restriction;
+package com.github.assisstion.ModulePack.collection;
 
 import java.util.Collection;
 import java.util.Comparator;
