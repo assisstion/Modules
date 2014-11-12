@@ -32,7 +32,7 @@ public class SortedList<T> extends ListWrapper<T>{
 	public boolean add(T t){
 		int i = 0;
 		for(T item : get()){
-			if(comp.compare(t, item) > 0){
+			if(comp.compare(t, item) < 0){
 				break;
 			}
 			i++;
