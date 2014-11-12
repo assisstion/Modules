@@ -224,6 +224,7 @@ public class Bag<T> extends AbstractCollection<T> implements MultiSet<T>{
 
 	}
 
+	@Override
 	public Map<T, Integer> mapView(){
 		return new RestrictionMapWrapper<T, Integer>(map,
 				(o, value) -> {

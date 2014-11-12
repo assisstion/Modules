@@ -8,4 +8,5 @@ public interface MultiSet<T> extends Collection<T>{
 	boolean removeAll(Map<T, Integer> map);
 	boolean add(T t, int amount);
 	boolean remove(Object o, int amount);
+	Map<T, Integer> mapView();
 }
