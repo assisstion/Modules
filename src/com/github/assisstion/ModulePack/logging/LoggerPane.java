@@ -40,20 +40,30 @@ public class LoggerPane extends JPanel implements Consumer<String>{
 	protected Color color = Color.BLACK;
 
 	protected String separator;
+	protected boolean reverseOrder;
+
+	public LoggerPane(Logger log, boolean showProgress, boolean reverseOrder){
+		this(log, showProgress, "\n", reverseOrder);
+	}
+
+	public LoggerPane(Logger log, boolean showProgress, String separator){
+		this(log, showProgress, separator, false);
+	}
 
 	public LoggerPane(Logger log, boolean showProgress){
-		this(log, showProgress, "\n");
+		this(log, showProgress, "\n", false);
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public LoggerPane(Logger log, boolean showProgress, String separator){
+	public LoggerPane(Logger log, boolean showProgress, String separator, boolean reverseOrder){
 		//setTitle();
 
 		setLayout(new BorderLayout(0, 0));
 
 		this.log = log;
+		this.reverseOrder = reverseOrder;
 		LogHandler handler = new LogHandler(this);
 		log.addHandler(handler);
 
@@ -71,9 +81,10 @@ public class LoggerPane extends JPanel implements Consumer<String>{
 			add(progressBar, BorderLayout.SOUTH);
 		}
 
-		DefaultCaret caret = (DefaultCaret) textPane.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-
+		if(!reverseOrder){
+			DefaultCaret caret = (DefaultCaret) textPane.getCaret();
+			caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		}
 
 		document = textPane.getStyledDocument();
 		style = document.addStyle("text-style", null);
@@ -119,8 +130,14 @@ public class LoggerPane extends JPanel implements Consumer<String>{
 				}
 				StyleConstants.setForeground(style, messageOne.getValueTwo());
 				try{
-					document.insertString(document.getLength(),
-							tempSeparator + messageOne.getValueOne(), style);
+					if(reverseOrder){
+						document.insertString(0,
+								messageOne.getValueOne() + tempSeparator, style);
+					}
+					else{
+						document.insertString(document.getLength(),
+								tempSeparator + messageOne.getValueOne(), style);
+					}
 				}
 				catch(BadLocationException e){
 					// TODO Auto-generated catch block
