@@ -85,6 +85,10 @@ public class LoggerPane extends JPanel implements Consumer<String>{
 			DefaultCaret caret = (DefaultCaret) textPane.getCaret();
 			caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		}
+		else{
+			DefaultCaret caret = (DefaultCaret) textPane.getCaret();
+			caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+		}
 
 		document = textPane.getStyledDocument();
 		style = document.addStyle("text-style", null);
