@@ -13,13 +13,15 @@ public class Bag<T> extends AbstractCollection<T> implements MultiSet<T>{
 	protected Map<T, Integer> map;
 
 	public Bag(){
-		map = new HashMap<T, Integer>();
+		this(new HashMap<T, Integer>());
+	}
+
+	public Bag(MultiSet<T> old){
+		this(old.mapView());
 	}
 
 	public Bag(Map<T, Integer> map){
-		this.map = map;
-		//Purges the map
-		new RestrictionMapWrapper<T, Integer>(map,
+		this.map = new RestrictionMapWrapper<T, Integer>(new HashMap<T, Integer>(map),
 				(o, value) -> {
 					Objects.requireNonNull(value);
 					if(value < 1){
@@ -63,8 +65,11 @@ public class Bag<T> extends AbstractCollection<T> implements MultiSet<T>{
 
 	@Override
 	public boolean add(T t, int amount){
+		if(amount == 0){
+			return false;
+		}
 		if(amount < 0){
-			return remove(t, amount);
+			return remove(t, -amount);
 		}
 		if(map.containsKey(t)){
 			map.put(t, map.get(t) + amount);
@@ -84,6 +89,9 @@ public class Bag<T> extends AbstractCollection<T> implements MultiSet<T>{
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean remove(Object o, int amount){
+		if(amount == 0){
+			return false;
+		}
 		T t;
 		try{
 			t = (T) o;
@@ -93,7 +101,7 @@ public class Bag<T> extends AbstractCollection<T> implements MultiSet<T>{
 			return false;
 		}
 		if(amount < 0){
-			return add(t, amount);
+			return add(t, -amount);
 		}
 		if(map.containsKey(t)){
 			int i = map.get(t);
@@ -226,14 +234,29 @@ public class Bag<T> extends AbstractCollection<T> implements MultiSet<T>{
 
 	@Override
 	public Map<T, Integer> mapView(){
-		return new RestrictionMapWrapper<T, Integer>(map,
-				(o, value) -> {
-					Objects.requireNonNull(value);
-					if(value < 1){
-						throw new IllegalArgumentException("Must have at least 1 element");
-					}
-					return true;
-				});
+		return map;
+	}
+
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof MultiSet<?>){
+			MultiSet<?> ms = (MultiSet<?>) o;
+			return map.equals(ms.mapView());
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode(){
+		return ~map.hashCode();
+	}
+
+	@Override
+	public int count(Object element){
+		if(!map.containsKey(element)){
+			return 0;
+		}
+		return map.get(element);
 	}
 
 }
