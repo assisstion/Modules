@@ -1,4 +1,4 @@
-package com.github.assisstion.ModulePack.helper.set;
+package com.github.assisstion.ModulePack.collection.helper;
 
 import java.util.AbstractSet;
 import java.util.ArrayList;
