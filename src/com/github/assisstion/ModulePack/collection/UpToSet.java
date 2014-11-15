@@ -5,10 +5,19 @@ import java.util.Iterator;
 
 public class UpToSet extends AbstractSet<Integer>{
 
-	protected int size = 0;
+	protected int start = 0;
+	protected int end = 0;
 
 	public UpToSet(int size){
-		this.size = size;
+		this(1, size + 1);
+	}
+
+	public UpToSet(int start, int end){
+		if(end < start){
+			throw new IllegalArgumentException("end must be greater than start");
+		}
+		this.start = start;
+		this.end = end;
 	}
 
 	@Override
@@ -16,7 +25,7 @@ public class UpToSet extends AbstractSet<Integer>{
 		if(o instanceof Number){
 			Number n = (Number) o;
 			int i = n.intValue();
-			if(i > 0 && i <= size){
+			if(i >= start  && i < end){
 				return true;
 			}
 		}
@@ -30,16 +39,16 @@ public class UpToSet extends AbstractSet<Integer>{
 
 	@Override
 	public int size(){
-		return size;
+		return end - start;
 	}
 
 	protected class UptoIterator implements Iterator<Integer>{
 
-		protected int index = 1;
+		protected int index = start;
 
 		@Override
 		public boolean hasNext(){
-			if(index <= size){
+			if(index < end){
 				return true;
 			}
 			return false;
