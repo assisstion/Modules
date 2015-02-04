@@ -35,7 +35,9 @@ public final class CloningMergeSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(T[] array, Comparator<? super T> comp){
-		sortRecursive(array, comp, 0, array.length);
+		//Creates an unsorted array as a clone
+		T[] unsorted = array.clone();
+		sortRecursive(array, unsorted, comp, 0, array.length);
 	}
 
 	/**
@@ -63,10 +65,12 @@ public final class CloningMergeSortHelper{
 		if(array.length == 0 || array.length == 1){
 			return;
 		}
-		sortRecursive(array, comp, begin, end);
+		//Creates an unsorted array as a clone
+		T[] unsorted = array.clone();
+		sortRecursive(array, unsorted, comp, begin, end);
 	}
 
-	private static <T> void sortRecursive(T[] array, Comparator<? super T> comp, int begin, int end){
+	private static <T> void sortRecursive(T[] array, T[] unsorted, Comparator<? super T> comp, int begin, int end){
 		//A sorting section with no elements or one element needs not be sorted
 		if(begin == end || begin == end - 1){
 			return;
@@ -85,10 +89,8 @@ public final class CloningMergeSortHelper{
 		//Split the array into half
 		int split = (end + begin) / 2;
 		//Sort each half of the array
-		sortRecursive(array, comp, begin, split);
-		sortRecursive(array, comp, split, end);
-		//Creates an unsorted array as a clone
-		T[] unsorted = array.clone();
+		sortRecursive(array, unsorted, comp, begin, split);
+		sortRecursive(array, unsorted, comp, split, end);
 		int indexCounter = 0;
 		int counterLeft = begin;
 		int counterRight = split;
@@ -141,7 +143,9 @@ public final class CloningMergeSortHelper{
 	 * @param comp the comparator to be used
 	 */
 	public static <T> void sort(List<T> list, Comparator<? super T> comp){
-		sortRecursive(list, comp, 0, list.size());
+		//Creates an unsorted array as a clone
+		List<T> unsorted = new ArrayList<T>(list);
+		sortRecursive(list, unsorted, comp, 0, list.size());
 	}
 
 	/**
@@ -169,10 +173,12 @@ public final class CloningMergeSortHelper{
 		if(list.size() == 0 || list.size() == 1){
 			return;
 		}
-		sortRecursive(list, comp, begin, end);
+		//Creates an unsorted array as a clone
+		List<T> unsorted = new ArrayList<T>(list);
+		sortRecursive(list, unsorted, comp, begin, end);
 	}
 
-	private static <T> void sortRecursive(List<T> list, Comparator<? super T> comp, int begin, int end){
+	private static <T> void sortRecursive(List<T> list, List<T> unsorted, Comparator<? super T> comp, int begin, int end){
 		//A sorting section with no elements or one element needs not be sorted
 		if(begin == end || begin == end - 1){
 			return;
@@ -191,10 +197,8 @@ public final class CloningMergeSortHelper{
 		//Split the array into half
 		int split = (end + begin) / 2;
 		//Sort each half of the array
-		sortRecursive(list, comp, begin, split);
-		sortRecursive(list, comp, split, end);
-		//Creates an unsorted array as a clone
-		List<T> unsorted = new ArrayList<T>(list);
+		sortRecursive(list, unsorted, comp, begin, split);
+		sortRecursive(list, unsorted, comp, split, end);
 		int indexCounter = 0;
 		int counterLeft = begin;
 		int counterRight = split;
