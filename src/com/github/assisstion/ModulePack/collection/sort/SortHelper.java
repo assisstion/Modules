@@ -202,9 +202,11 @@ public final class SortHelper{
 		return n2 - n1;
 	}
 
+	private static final int TEST_LENGTH = 1024;
+
 	private static Integer[] getTestingArray(){
 		Random random = new Random();
-		Integer[] ia = new Integer[1024];
+		Integer[] ia = new Integer[TEST_LENGTH];
 		for(int i = 0; i < ia.length; i++){
 			ia[i] = random.nextInt();
 		}
@@ -213,7 +215,7 @@ public final class SortHelper{
 
 	private static List<Integer> getTestingList(){
 		Random random = new Random();
-		int length = 1024;
+		int length = TEST_LENGTH;
 		List<Integer> ia = new ArrayList<Integer>(length);
 		for(int i = 0; i < length; i++){
 			ia.add(random.nextInt());
@@ -223,7 +225,7 @@ public final class SortHelper{
 
 	private static LeftSortedIntegerPair[] getTestingIntegerPairs(){
 		Random random = new Random();
-		LeftSortedIntegerPair[] ia = new LeftSortedIntegerPair[1024];
+		LeftSortedIntegerPair[] ia = new LeftSortedIntegerPair[TEST_LENGTH];
 		for(int i = 0; i < ia.length - 1; i+=2){
 			int n = random.nextInt();
 			ia[i] = new LeftSortedIntegerPair(n, i);
@@ -234,7 +236,7 @@ public final class SortHelper{
 
 	private static List<LeftSortedIntegerPair> getTestingIntegerPairList(){
 		Random random = new Random();
-		int length = 1024;
+		int length = TEST_LENGTH;
 		List<LeftSortedIntegerPair> ia = new ArrayList<LeftSortedIntegerPair>(length);
 		for(int i = 0; i < length - 1; i+=2){
 			int n = random.nextInt();
